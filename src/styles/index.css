@@ -1,0 +1,37 @@
+@import 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+}
+button {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+}
+body {
+  min-height: 100vh;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+}
