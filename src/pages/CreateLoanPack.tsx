@@ -1,6 +1,6 @@
 import girl2 from '~/assets/images/A2.png'
 import bg from '~/assets/images/bg-card.png'
-import { Slider } from '@material-tailwind/react'
+// import { Slider } from '@material-tailwind/react'
 const CreateLoanPack = () => {
   return (
     <div className='relative h-max'>
@@ -48,7 +48,7 @@ const CreateLoanPack = () => {
               />
             </div>
 
-            <div className='mb-3 pt-2'>
+            {/* <div className='mb-3 pt-2'>
               <Slider
                 barClassName=' bg-[#4f4fb8]'
                 thumbClassName='[&::-moz-range-thumb]:rounded-none  [&::-webkit-slider-thumb]:w-[20px] [&::-webkit-slider-thumb]:h-[20px] [&::-webkit-slider-thumb]:-mt-[8px]'
@@ -63,7 +63,7 @@ const CreateLoanPack = () => {
                 <div>500tr</div>
                 <div>1tỷ</div>
               </div>
-            </div>
+            </div> */}
             <div className='mb-3'>
               <label htmlFor='num'>Thời gian vay (tháng)</label>
               <input
@@ -73,7 +73,7 @@ const CreateLoanPack = () => {
                 className='w-full  mt-2 max-w-[320px] rounded block border p-1.5 px-3'
               />
             </div>
-            <div className='mb-3 pt-2'>
+            {/* <div className='mb-3 pt-2'>
               <Slider
                 barClassName=' bg-[#4f4fb8]'
                 thumbClassName='[&::-moz-range-thumb]:rounded-none  [&::-webkit-slider-thumb]:w-[20px] [&::-webkit-slider-thumb]:h-[20px] [&::-webkit-slider-thumb]:-mt-[8px]'
@@ -89,7 +89,7 @@ const CreateLoanPack = () => {
                 <div>60</div>
                 <div>120</div>
               </div>
-            </div>
+            </div> */}
             <div className='flex md:items-center col-span-3 md:col-span-1 flex-col md:flex-row'>
               <div className=' w-[220px]'>
                 Thu nhập (tháng) <span className='text-red-600'>*</span>

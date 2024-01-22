@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 const ScrollToTop = () => {
   const [showButton, setShowButton] = useState<boolean>(false)
   const { pathname } = useLocation()
-  console.log(showButton);
+  console.log(showButton)
 
   const handleScroll = () => {
     if (window.scrollY > 300) {
