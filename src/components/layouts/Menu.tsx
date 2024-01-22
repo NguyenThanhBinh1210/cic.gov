@@ -2,9 +2,13 @@
 import { menuLink } from '~/constants/renaral.const'
 import BaseModal from '../Modal/BaseModal'
 import { useNavigate } from 'react-router-dom'
+import AboutModal from '~/modules/modal/AboutModal'
+import { useState } from 'react'
 
 const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () => void }) => {
   const navigate = useNavigate()
+  const [showAbout, setShowAbout] = useState(false)
+
   return (
     <>
       <BaseModal show={showMenu} onClose={onCloseMenu} />
@@ -22,6 +26,9 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
               onClick={() => {
                 if (item.path) {
                   navigate(item.path)
+                }
+                if (item.title === 'Giới thiệu') {
+                  setShowAbout(true)
                 }
               }}
               className='w-full h-full px-8 flex gap-x-1 items-center'
@@ -73,6 +80,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
           />
         </svg>
       </div>
+      <AboutModal showAbout={showAbout} onCloseAbout={() => setShowAbout(false)} />
     </>
   )
 }

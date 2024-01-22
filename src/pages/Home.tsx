@@ -6,6 +6,7 @@ import bidv from '~/assets/images/bidv120x50.jpg'
 import banner from '~/assets/images/20210518160930_bannercic.png'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import AboutModal from '~/modules/modal/AboutModal'
 const Home = () => {
   const [cityList, setCityList] = useState([])
   const [selectedCity, setSelectedCity] = useState<any>({})
@@ -27,8 +28,11 @@ const Home = () => {
       setDistrictList(selectedA)
     }
   }, [cityList, selectedCity])
+
+  const [showAbout, setShowAbout] = useState(false)
   return (
     <div>
+      <AboutModal showAbout={showAbout} onCloseAbout={() => setShowAbout(false)} />
       <section className='relative  lg:block hidden'>
         <img src={banner} alt='banner' className='h-full md:h-auto ' />
         <div className='absolute bottom-0   left-1/2 -translate-x-1/2 bg-[rgba(0,0,0,0.5)] px-5 py-4'>
@@ -147,7 +151,7 @@ const Home = () => {
         <h2 className='text-center text-gray61 uppercase text-2xl font-bold mt-2 mb-4'>Đăng ký nhu cầu tín dụng</h2>
         <Sliders width={100}>
           {nhucauLink.map((item, index) => (
-            <Link to='/' key={index} className='mx-4'>
+            <Link to={`/loan-pack/create`} key={index} className='mx-4'>
               <div
                 className='w-[100px] h-[100px] flex items-center justify-center rounded-lg'
                 style={{ background: item.bg }}

@@ -3,7 +3,7 @@ import hot from '~/assets/images/hot.png'
 const CardPack = () => {
   return (
     <div className='bg-[#f2f0f0] py-10 px-3 md:px-0'>
-      <div className='max-w-[1330px] mx-auto px-3 md:px-0'>
+      <div className='max-w-[1330px] mx-auto '>
         <h1 className='text-[#5b5858] text-[28px] font-bold text-center'>
           CÁC ƯU ĐÃI DỊCH VỤ THẺ TỐT NHẤT TỪ CÁC NGÂN HÀNG
         </h1>

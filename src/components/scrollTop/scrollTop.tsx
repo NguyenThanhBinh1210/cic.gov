@@ -4,12 +4,8 @@ import { useLocation } from 'react-router-dom'
 const ScrollToTop = () => {
   const [showButton, setShowButton] = useState<boolean>(false)
   const { pathname } = useLocation()
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  }
+  console.log(showButton);
+
   const handleScroll = () => {
     if (window.scrollY > 300) {
       setShowButton(true)
@@ -27,15 +23,7 @@ const ScrollToTop = () => {
     }
   }, [pathname])
 
-  return (
-    <>
-      {showButton && (
-        <button onClick={scrollToTop} className='bg-red-400 fixed bottom-10 right-10'>
-          Top
-        </button>
-      )}
-    </>
-  )
+  return null
 }
 
 export default ScrollToTop

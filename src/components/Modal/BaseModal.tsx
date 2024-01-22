@@ -1,11 +1,13 @@
-const BaseModal = ({ show, onClose }: { show: boolean; onClose: () => void }) => {
+const BaseModal = ({ show, onClose, children }: { show: boolean; onClose: () => void; children?: React.ReactNode }) => {
   return (
     <div
       onClick={onClose}
-      className={`w-full h-full fixed top-0 left-0 bg-slate-900 transition-all ${
+      className={`w-full flex items-center px-3 justify-center z-50 h-full fixed top-0 left-0 bg-slate-900 transition-all ${
         show ? '0 bg-opacity-30 visible' : 'bg-opacity-0 invisible'
       }`}
-    ></div>
+    >
+      <div onClick={(e) => e.stopPropagation()}>{children}</div>
+    </div>
   )
 }
 

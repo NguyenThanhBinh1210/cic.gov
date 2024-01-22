@@ -67,16 +67,16 @@ export const menuLink = [
     children: [
       {
         title: 'Thông tin tín dụng',
-        path: '/'
+        path: '/report'
       },
       {
         title: 'Xếp hạng tín dụng',
-        path: '/'
-      },
-      {
-        title: 'Báo cáo thông tin doanh nghiệp',
-        path: '/'
+        path: '/credit-ratting'
       }
+      // {
+      //   title: 'Báo cáo thông tin doanh nghiệp',
+      //   path: '/'
+      // }
     ]
   },
   {

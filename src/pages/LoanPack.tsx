@@ -4,7 +4,7 @@ import hot from '~/assets/images/hot.png'
 const LoanPack = () => {
   return (
     <div className='bg-[#f2f0f0] py-10 px-3 md:px-0'>
-      <div className='max-w-[1330px] mx-auto px-3 md:px-0'>
+      <div className='max-w-[1330px] mx-auto'>
         <h1 className='text-[#5b5858] text-[28px] font-bold text-center'>CÁC GÓI VAY TỐT NHẤT TỪ CÁC NGÂN HÀNG</h1>
         <p className='text-center mt-5 mb-2'>Số liệu luôn luôn được cập nhật mới nhất và chính xác nhất</p>
         <div style={{ boxShadow: '0 0 8px 0 rgba(0,0,0,0.15)' }} className='mb-5 bg-white'>

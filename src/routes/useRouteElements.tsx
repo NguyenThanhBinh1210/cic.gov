@@ -9,6 +9,10 @@ import Home from '~/pages/Home'
 import { useContext } from 'react'
 import LoanPack from '~/pages/LoanPack'
 import CardPack from '~/pages/CardPack'
+import Report from '~/pages/Report'
+import CreditRatting from '~/pages/CreditRatting'
+import CreateCardPack from '~/pages/CreateCardPack'
+import CreateLoanPack from '~/pages/CreateLoanPack'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -70,6 +74,38 @@ const useRouteElements = () => {
       element: (
         <HomeLayout>
           <CardPack />
+        </HomeLayout>
+      )
+    },
+    {
+      path: '/report',
+      element: (
+        <HomeLayout>
+          <Report />
+        </HomeLayout>
+      )
+    },
+    {
+      path: '/credit-ratting',
+      element: (
+        <HomeLayout>
+          <CreditRatting />
+        </HomeLayout>
+      )
+    },
+    {
+      path: '/card-pack/create',
+      element: (
+        <HomeLayout>
+          <CreateCardPack />
+        </HomeLayout>
+      )
+    },
+    {
+      path: '/loan-pack/create',
+      element: (
+        <HomeLayout>
+          <CreateLoanPack />
         </HomeLayout>
       )
     },
