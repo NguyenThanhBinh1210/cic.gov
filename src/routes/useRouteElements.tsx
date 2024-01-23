@@ -13,6 +13,10 @@ import Report from '~/pages/Report'
 import CreditRatting from '~/pages/CreditRatting'
 import CreateCardPack from '~/pages/CreateCardPack'
 import CreateLoanPack from '~/pages/CreateLoanPack'
+import ChangePassword from '~/pages/ChangePassword'
+import ProfileLayout from '~/layouts/ProfileLayout'
+import Settings from '~/pages/Settings'
+import QuanLy from '~/pages/QuanLy'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -107,6 +111,30 @@ const useRouteElements = () => {
         <HomeLayout>
           <CreateLoanPack />
         </HomeLayout>
+      )
+    },
+    {
+      path: '/profile/password',
+      element: (
+        <ProfileLayout>
+          <ChangePassword />
+        </ProfileLayout>
+      )
+    },
+    {
+      path: '/profile/settings',
+      element: (
+        <ProfileLayout>
+          <Settings />
+        </ProfileLayout>
+      )
+    },
+    {
+      path: '/profile/loan-demand',
+      element: (
+        <ProfileLayout>
+          <QuanLy />
+        </ProfileLayout>
       )
     },
     {

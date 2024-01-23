@@ -5,9 +5,11 @@ import face from '~/assets/images/icon_facebook.png'
 import ytb from '~/assets/images/icon_youtube.png'
 import Menu from './Menu'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AppContext } from '~/contexts/app.context'
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false)
+  const { isAuthenticated } = useContext(AppContext)
   return (
     <div className='relative z-50'>
       <img src={navbg} alt='navbg' className='absolute top-0 left-0 w-full h-full' />
@@ -16,21 +18,37 @@ const Header = () => {
           <img src={logo} alt='logo' className='w-[80px] h-[60px] md:h-[100px]  md:w-full max-w-[127px]' />
         </Link>
         <div className='flex-1 flex flex-col justify-center'>
-          <div className='flex flex-col lg:flex-row justify-between md:mb-4'>
+
+          <div style={{ zIndex: !showMenu ? 1000 : 1 }} className='flex flex-col lg:flex-row justify-between md:mb-4'>
             <Link to={'/'}>
               <img src={logotext} alt='logotext' className='w-[200px] md:w-full max-w-[441px]' />
             </Link>
             <div className='hidden md:block'>
               <div className='flex gap-3 mb-3'>
-                <button className='border border-white px-1.5 font-medium rounded text-red-500'>
-                  Dành cho tổ chức tín dụng
-                </button>
-                <Link to={'/register'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
-                  Đăng ký
-                </Link>
-                <Link to={'/login'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
-                  Đăng nhập
-                </Link>
+                {!isAuthenticated &&
+                  <>
+                    <button className='border border-white px-1.5 font-medium rounded text-red-500'>
+                      Dành cho tổ chức tín dụng
+                    </button>
+                    <Link to={'/register'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
+                      Đăng ký
+                    </Link>
+                    <Link to={'/login'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
+                      Đăng nhập
+                    </Link></>
+                }
+                {isAuthenticated && (
+                  <div className='group relative z-50'>
+                    <button className='border border-white px-1.5 font-medium rounded text-blue-800'>
+                      Nguyễn Thanh Bình
+                    </button>
+                    <ul className='bg-white group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all py-1 text-blue-800 text-base rounded absolute top-full right-0 w-max h-max'>
+                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'><Link to={'/profile/loan-demand'}>Hồ sơ</Link></li>
+                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'><Link to={'/profile/password'}>Đổi mật khẩu</Link></li>
+                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>Đăng xuất</li>
+                    </ul>
+                  </div>
+                )}
                 <button className='border hidden md:block border-white px-1.5 font-medium rounded text-red-500'>
                   <svg
                     className='w-4 h-4 text-[#191991] :text-white'
@@ -66,7 +84,8 @@ const Header = () => {
           {!showMenu && (
             <button
               onClick={() => setShowMenu(true)}
-              className='lg:hidden absolute top-1/2 md:top-10 -translate-y-1/2 right-3'
+              style={{ zIndex: 1001 }}
+              className=' lg:hidden absolute top-1/2 md:top-10 -translate-y-1/2 right-3'
             >
               <svg
                 className='w-6 h-6 text-white '

@@ -1,26 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { menuLink } from '~/constants/renaral.const'
 import BaseModal from '../Modal/BaseModal'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AboutModal from '~/modules/modal/AboutModal'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AppContext } from '~/contexts/app.context'
 
 const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () => void }) => {
   const navigate = useNavigate()
   const [showAbout, setShowAbout] = useState(false)
+  const { isAuthenticated } = useContext(AppContext)
 
   return (
     <>
       <BaseModal show={showMenu} onClose={onCloseMenu} />
       <div
-        className={`flex ${
-          showMenu ? '-translate-x-0' : '-translate-x-full'
-        } transition-all z-50  lg:-translate-x-0 fixed lg:static pt-10 lg:pt-0 bg-white lg:bg-transparent top-0 left-0 w-max h-screen lg:h-max justify-start flex-col lg:flex-row items-center lg:w-full lg:justify-center`}
+        className={`flex ${showMenu ? '-translate-x-0' : '-translate-x-full'
+          } transition-all z-50  lg:-translate-x-0 fixed lg:static pt-10 lg:pt-0 bg-white lg:bg-transparent top-0 left-0 w-max h-screen lg:h-max justify-start flex-col lg:flex-row items-center lg:w-full lg:justify-center`}
       >
         {menuLink.map((item, index) => (
           <div
             key={index}
-            className='text-blue19 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border border-gray-500'
+            className='text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'
           >
             <div
               onClick={() => {
@@ -63,6 +64,39 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
             )}
           </div>
         ))}
+        {isAuthenticated ? (
+          <>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <Link to={'/profile/settings'}>Thông tin cá nhân</Link>
+              </div>
+            </div>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <Link to={'/profile/password'}>Đổi mật khẩu</Link>
+              </div>
+            </div>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <Link to={'/profile/loan-demand'}>Quản lý nhu cầu thẻ</Link>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <Link to={'/login'}>Đăng nhập</Link>
+              </div>
+            </div>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <Link to={'/register'}>Đăng ký</Link>
+              </div>
+            </div>
+          </>
+        )}
+
         <svg
           onClick={onCloseMenu}
           className='lg:hidden absolute cursor-pointer  top-2 right-2 w-5 h-5 text-gray-600'
@@ -80,6 +114,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
           />
         </svg>
       </div>
+
       <AboutModal showAbout={showAbout} onCloseAbout={() => setShowAbout(false)} />
     </>
   )
