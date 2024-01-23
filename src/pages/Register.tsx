@@ -73,7 +73,7 @@ const Register = () => {
                 Mật khẩu <span className='text-red-600'>*</span>
               </div>
               <div className='flex items-center border rounded overflow-hidden'>
-                <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+                <div className=' '></div>
                 <div className='flex-1 p-1.5'>
                   <input type='text' className='w-full' placeholder='Nhập mật khẩu' />
                 </div>
@@ -84,7 +84,7 @@ const Register = () => {
                 Xác nhận <span className='text-red-600'>*</span>
               </div>
               <div className='flex items-center border rounded overflow-hidden'>
-                <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+                <div className=' '></div>
                 <div className='flex-1 p-1.5'>
                   <input type='text' className='w-full' placeholder='Nhập mật khẩu' />
                 </div>

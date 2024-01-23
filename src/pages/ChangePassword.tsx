@@ -2,14 +2,14 @@ const ChangePassword = () => {
   return (
     <div className='p-8'>
       <div className='py-6 rounded-md bg-white shadow-lg w-full'>
-        <div className='max-w-[453px] mx-auto'>
-          <h1 className='text-[#616161] font-bold text-[28px] mb-4'>ĐỔI MẬT KHẨU ĐĂNG NHẬP</h1>
+        <div className='max-w-[453px] mx-auto px-2 md:px-0'>
+          <h1 className='text-[#616161] font-bold text-[28px] mb-4 text-center md:text-left'>ĐỔI MẬT KHẨU </h1>
           <div className='flex  col-span-3 flex-col mb-4 '>
             <div className=' w-[150px] mb-1'>
               Mật khẩu hiện tại
             </div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input
                   type='password'
@@ -24,7 +24,7 @@ const ChangePassword = () => {
               Nhập mật khẩu
             </div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input
                   type='password'
@@ -39,7 +39,7 @@ const ChangePassword = () => {
               Nhập lại mật khẩu
             </div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input
                   type='password'

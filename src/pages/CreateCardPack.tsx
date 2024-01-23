@@ -43,7 +43,7 @@ const CreateCardPack = () => {
               </div>
               <div className='flex items-center'>
                 <div className='flex w-[200px] items-center border rounded-l overflow-hidden'>
-                  <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+                  <div className=' '></div>
                   <div className='flex-1 p-1.5'>
                     <input type='text' className='w-full' placeholder='Thu nhập' />
                   </div>
@@ -54,25 +54,25 @@ const CreateCardPack = () => {
           </div>
           <div className='flex flex-col gap-3'>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Họ và tên' />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Số điện thoại' />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='CMND/CCCD' />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Email' />
               </div>

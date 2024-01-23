@@ -38,7 +38,7 @@ const RegisterSingle = () => {
             Họ và tên <span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Nhập họ và tên theo CMND' />
             </div>
@@ -49,7 +49,7 @@ const RegisterSingle = () => {
             Ngày sinh <span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Ngày tháng năm sinh' />
             </div>
@@ -60,7 +60,7 @@ const RegisterSingle = () => {
             Số điện thoại <span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Nhập số điện thoại' />
             </div>
@@ -71,7 +71,7 @@ const RegisterSingle = () => {
             Số CMND / CCCD <span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Nhập số CMND / CCCD' />
             </div>
@@ -80,7 +80,7 @@ const RegisterSingle = () => {
         <div className='flex md:items-center col-span-3 md:col-span-1 flex-col md:flex-row'>
           <div className='font-bold w-[150px]'>Ngày cấp</div>
           <div className='flex items-center border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Ngày cấp CMND / CCCD' />
             </div>
@@ -89,7 +89,7 @@ const RegisterSingle = () => {
         <div className='flex md:items-center col-span-3 md:col-span-1 flex-col md:flex-row'>
           <div className='font-bold w-[150px]'>Nơi cấp</div>
           <div className='flex items-center border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Nơi cấp CMND / CCCD' />
             </div>
@@ -98,7 +98,7 @@ const RegisterSingle = () => {
         <div className='flex md:items-center col-span-3 md:col-span-1 flex-col md:flex-row'>
           <div className='font-bold w-[150px]'>Email</div>
           <div className='flex items-center border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Nhập email' />
             </div>
@@ -140,7 +140,7 @@ const RegisterSingle = () => {
             Địa chỉ<span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center flex-1 border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input
                 type='text'
@@ -155,7 +155,7 @@ const RegisterSingle = () => {
             Tỉnh/Thành phố<span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center flex-1 border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <select
                 value={selectedCity}
@@ -179,7 +179,7 @@ const RegisterSingle = () => {
             Quận/ huyện<span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center flex-1 border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <select
                 value={selectedDistrict}
@@ -203,7 +203,7 @@ const RegisterSingle = () => {
             Phường xã<span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center flex-1 border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <select
                 value={selectedWard}
@@ -227,7 +227,7 @@ const RegisterSingle = () => {
             Giấy tờ khác<span className='text-red-600'>*</span>
           </div>
           <div className='flex items-center flex-1 border rounded overflow-hidden'>
-            <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+            <div className=' '></div>
             <div className='flex-1 p-1.5'>
               <input type='text' className='w-full' placeholder='Nhập CMND cũ 9 số để được cấp tài khoản sớm nhất' />
             </div>

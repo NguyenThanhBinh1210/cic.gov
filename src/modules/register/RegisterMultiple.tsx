@@ -9,7 +9,7 @@ const RegisterMultiple = () => {
               Mã số DN <span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Mã số doanh nghiệp' />
               </div>
@@ -20,7 +20,7 @@ const RegisterMultiple = () => {
               Ngày cấp MSDN <span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Ngày tháng năm cấp' />
               </div>
@@ -31,7 +31,7 @@ const RegisterMultiple = () => {
               Email <span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Nhập email' />
               </div>
@@ -42,7 +42,7 @@ const RegisterMultiple = () => {
               Tên DN <span className='text-red-600'>*</span>
             </div>
             <div className='flex flex-1 items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Tên doanh nghiệp' />
               </div>
@@ -69,7 +69,7 @@ const RegisterMultiple = () => {
               Tỉnh/Thành phố<span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <select className='w-full text-gray-400'>
                   <option value='' selected disabled>
@@ -86,7 +86,7 @@ const RegisterMultiple = () => {
               Quận/ huyện<span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <select className='w-full text-gray-400'>
                   <option value='' selected disabled>
@@ -103,7 +103,7 @@ const RegisterMultiple = () => {
               Phường xã<span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <select className='w-full text-gray-400'>
                   <option value='' selected disabled>
@@ -120,7 +120,7 @@ const RegisterMultiple = () => {
               Địa chỉ liên hệ<span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input
                   type='text'
@@ -136,7 +136,7 @@ const RegisterMultiple = () => {
               <span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input
                   type='text'
@@ -153,7 +153,7 @@ const RegisterMultiple = () => {
               <span className='text-red-600'>*</span>
             </div>
             <div className='flex items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Ngày tháng năm cấp' />
               </div>
@@ -164,7 +164,7 @@ const RegisterMultiple = () => {
               Loại hình DN <span className='text-red-600'>*</span>
             </div>
             <div className='flex flex-1 items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <select className='w-full text-gray-400'>
                   <option value='' selected disabled>
@@ -212,7 +212,7 @@ const RegisterMultiple = () => {
               Giám đốc/TGĐ <span className='text-red-600'>*</span>
             </div>
             <div className='flex flex-1 items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Giám đốc/ Tổng giám đốc' />
               </div>
@@ -228,7 +228,7 @@ const RegisterMultiple = () => {
               Người đại diện <span className='text-red-600'>*</span>
             </div>
             <div className='flex flex-1 items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Người đại diện' />
               </div>
@@ -239,7 +239,7 @@ const RegisterMultiple = () => {
               Số điện thoại <span className='text-red-600'>*</span>
             </div>
             <div className='flex flex-1 items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Số điện thoại di động' />
               </div>
@@ -251,7 +251,7 @@ const RegisterMultiple = () => {
               <span className='text-red-600'>*</span>
             </div>
             <div className='flex flex-1 items-center border rounded overflow-hidden'>
-              <div className='w-1 h-[33px] text-transparent bg-red-500'></div>
+              <div className=' '></div>
               <div className='flex-1 p-1.5'>
                 <input type='text' className='w-full' placeholder='Chức vụ người đại diện' />
               </div>
