@@ -32,7 +32,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
                   setShowAbout(true)
                 }
               }}
-              className='w-full h-full px-8 flex gap-x-1 items-center'
+              className={`w-full h-full px-8 flex gap-x-1 items-center ${item.title === 'Menu' && 'px-20'}`}
             >
               {item.title}{' '}
               {item.children && (
