@@ -54,7 +54,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
                     <li
                       onClick={() => navigate(item2.path)}
                       key={index2}
-                      className='text-center relative group hover:bg-blue19  group-hover:text-blue19 hover:text-white border-b border-gray-400 last:border-none'
+                      className='px-8 bg-gray-200 lg:bg-white lg:text-center relative group hover:bg-blue19  group-hover:text-blue19 hover:text-white border-b border-gray-400 last:border-none'
                     >
                       <div className='w-full h-full py-0.5 hover:text-white'>{item2.title}</div>
                     </li>
