@@ -10,30 +10,32 @@ const Sidebar = () => {
       </div>
       <ul className='px-3 mt-6'>
         <li
-          className={`py-1 px-2 ${location === '/profile/settings' && 'bg-[#333399] text-white'
-            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
+          className={`py-1 px-2 ${
+            location === '/profile/settings' && 'bg-[#333399] text-white'
+          } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
         >
           <Link className='w-full block' to={'/profile/settings'}>
             Hồ sơ tài khoản
           </Link>
         </li>
         <li
-          className={`py-1 px-2 ${location === '/profile/loan-demand' && 'bg-[#333399] text-white'
-            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+          className={`py-1 px-2 ${
+            location === '/profile/loan-demand' && 'bg-[#333399] text-white'
+          } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
         >
           <Link className='w-full block' to={'/profile/loan-demand'}>
             Quản lý
           </Link>
         </li>
         <li
-          className={`py-1 px-2 ${location === '/profile/password' && 'bg-[#333399] text-white'
-            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+          className={`py-1 px-2 ${
+            location === '/profile/password' && 'bg-[#333399] text-white'
+          } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
         >
           <Link className='w-full block' to={'/profile/password'}>
             Đổi mật khẩu
           </Link>
         </li>
-
       </ul>
 
       <ul className='px-3 mt-6 '>
