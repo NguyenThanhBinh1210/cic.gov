@@ -1,5 +1,5 @@
-import { useState } from "react"
-import NotifyCMNDModal from "~/modules/modal/NotifyCMNDModal"
+import { useState } from 'react'
+import NotifyCMNDModal from '~/modules/modal/NotifyCMNDModal'
 
 const Settings = () => {
   const [showNoti, setShowNoti] = useState(false)

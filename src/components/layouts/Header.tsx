@@ -18,14 +18,13 @@ const Header = () => {
           <img src={logo} alt='logo' className='w-[80px] h-[60px] md:h-[100px]  md:w-full max-w-[127px]' />
         </Link>
         <div className='flex-1 flex flex-col justify-center'>
-
           <div style={{ zIndex: !showMenu ? 1000 : 1 }} className='flex flex-col lg:flex-row justify-between md:mb-4'>
             <Link to={'/'}>
               <img src={logotext} alt='logotext' className='w-[200px] md:w-full max-w-[441px]' />
             </Link>
             <div className='hidden md:block'>
               <div className='flex gap-3 mb-3'>
-                {!isAuthenticated &&
+                {!isAuthenticated && (
                   <>
                     <button className='border border-white px-1.5 font-medium rounded text-red-500'>
                       Dành cho tổ chức tín dụng
@@ -35,17 +34,28 @@ const Header = () => {
                     </Link>
                     <Link to={'/login'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
                       Đăng nhập
-                    </Link></>
-                }
+                    </Link>
+                  </>
+                )}
                 {isAuthenticated && (
                   <div className='group relative z-50'>
                     <button className='border border-white px-1.5 font-medium rounded text-blue-800'>
                       Nguyễn Thanh Bình
                     </button>
                     <ul className='bg-white group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all py-1 text-blue-800 text-base rounded absolute top-full right-0 w-max h-max'>
-                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'><Link to={'/profile/loan-demand'}>Hồ sơ</Link></li>
-                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'><Link to={'/profile/password'}>Đổi mật khẩu</Link></li>
-                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>Đăng xuất</li>
+                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
+                        <Link className='w-full block' to={'/profile/loan-demand'}>
+                          Hồ sơ
+                        </Link>
+                      </li>
+                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
+                        <Link className='w-full block' to={'/profile/password'}>
+                          Đổi mật khẩu
+                        </Link>
+                      </li>
+                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
+                        Đăng xuất
+                      </li>
                     </ul>
                   </div>
                 )}

@@ -59,9 +59,11 @@ const CardPack = () => {
         {linkArr.length < 25 && (
           <button
             onClick={() => {
-              const newLink = [...linkArr]
-              newLink.push(...cardPackList)
-              setLink(newLink)
+              setTimeout(() => {
+                const newLink = [...linkArr]
+                newLink.push(...cardPackList)
+                setLink(newLink)
+              }, 700)
             }}
             className='bg-[#f1485e] text-white block mx-auto px-2 rounded transition-all hover:bg-[#e4334b] py-1 border'
           >

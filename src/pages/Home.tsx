@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Sliders from '~/components/Silder'
 import { nhucauLink, toChucLink } from '~/constants/renaral.const'
 import bidv from '~/assets/images/bidv120x50.jpg'
@@ -30,6 +30,12 @@ const Home = () => {
   }, [cityList, selectedCity])
 
   const [showAbout, setShowAbout] = useState(false)
+  const navigate = useNavigate()
+  const handleSearch = () => {
+    setTimeout(() => {
+      navigate('/loan-pack')
+    }, 700)
+  }
   return (
     <div>
       <AboutModal showAbout={showAbout} onCloseAbout={() => setShowAbout(false)} />
@@ -104,7 +110,7 @@ const Home = () => {
                 name=''
                 id=''
               >
-                <option value='0' selected disabled className='text-gray-400'>
+                <option value='0' selected className='text-gray-400'>
                   Tỉnh/Thành phố
                 </option>
                 {cityList?.map((item: any) => (
@@ -141,7 +147,10 @@ const Home = () => {
                 ))}
               </select>
             </div>
-            <button className='border-2 w-[130px] h-[38px] hover:bg-white hover:text-[#ef9c33] hover:border-[#ef9c33] transition-all text-white border-white bg-[#ef9c33]'>
+            <button
+              onClick={handleSearch}
+              className='border-2 w-[130px] h-[38px] hover:bg-white hover:text-[#ef9c33] hover:border-[#ef9c33] transition-all text-white border-white bg-[#ef9c33]'
+            >
               Tìm kiếm
             </button>
           </div>

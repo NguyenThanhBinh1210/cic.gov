@@ -5,53 +5,33 @@ const ChangePassword = () => {
         <div className='max-w-[453px] mx-auto px-2 md:px-0'>
           <h1 className='text-[#616161] font-bold text-[28px] mb-4 text-center md:text-left'>ĐỔI MẬT KHẨU </h1>
           <div className='flex  col-span-3 flex-col mb-4 '>
-            <div className=' w-[150px] mb-1'>
-              Mật khẩu hiện tại
-            </div>
+            <div className=' w-[150px] mb-1'>Mật khẩu hiện tại</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input
-                  type='password'
-                  className='w-full'
-                  placeholder='Nhập mật khẩu hiện tại của quý khách'
-                />
+                <input type='password' className='w-full' placeholder='Nhập mật khẩu hiện tại của quý khách' />
               </div>
             </div>
           </div>
           <div className='flex  col-span-3 flex-col mb-4 '>
-            <div className=' w-[150px] mb-1'>
-              Nhập mật khẩu
-            </div>
+            <div className=' w-[150px] mb-1'>Nhập mật khẩu</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input
-                  type='password'
-                  className='w-full'
-                  placeholder='Nhập mật khẩu'
-                />
+                <input type='password' className='w-full' placeholder='Nhập mật khẩu' />
               </div>
             </div>
           </div>
           <div className='flex  col-span-3 flex-col mb-4 '>
-            <div className=' w-[150px] mb-1'>
-              Nhập lại mật khẩu
-            </div>
+            <div className=' w-[150px] mb-1'>Nhập lại mật khẩu</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input
-                  type='password'
-                  className='w-full'
-                  placeholder='Nhập lại mật khẩu'
-                />
+                <input type='password' className='w-full' placeholder='Nhập lại mật khẩu' />
               </div>
             </div>
           </div>
-          <div className="bg-blue-400 rounded text-white font-medium w-max px-4 py-2">
-            Lưu
-          </div>
+          <div className='bg-blue-400 rounded text-white font-medium w-max px-4 py-2'>Lưu</div>
         </div>
       </div>
     </div>
