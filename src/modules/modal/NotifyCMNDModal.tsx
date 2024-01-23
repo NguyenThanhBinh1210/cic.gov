@@ -77,7 +77,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
           </svg>
         </div>
         <div className='bg-white px-4 py-2 rounded-b-md'>
-          <div className='flex items-center gap-1 text-gray-400 leading-8'>
+          <div className='flex items-center gap-1 text-gray-400 mb-2'>
             <svg
               className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
               aria-hidden='true'
@@ -95,7 +95,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
             </svg>{' '}
             Ảnh được chụp từ CMND/ CCCD do chính phủ cấp.
           </div>
-          <div className='flex items-center gap-1 text-gray-400 leading-8'>
+          <div className='flex items-center gap-1 text-gray-400 mb-2'>
             <svg
               className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
               aria-hidden='true'
@@ -113,7 +113,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
             </svg>{' '}
             Ảnh CMND/ CCCD được chụp trên nền một màu.
           </div>
-          <div className='flex items-center gap-1 text-gray-400 leading-8'>
+          <div className='flex items-center gap-1 text-gray-400 mb-2'>
             <svg
               className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
               aria-hidden='true'
@@ -131,7 +131,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
             </svg>{' '}
             Ảnh CMND/ CCCD phải rõ nét, không bị cắt, không bị bóng, không bị mờ.
           </div>
-          <div className='flex items-center gap-1 text-gray-400 leading-8'>
+          <div className='flex items-center gap-1 text-gray-400 mb-2'>
             <svg
               className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
               aria-hidden='true'
@@ -149,7 +149,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
             </svg>{' '}
             Ảnh chân dung khách hàng chụp kèm mặt trước CMND/CCCD
           </div>
-          <div className='flex items-center gap-1 text-gray-400 leading-8'>
+          <div className='flex items-center gap-1 text-gray-400 mb-2'>
             <svg
               className='w-[18px] h-[18px] text-red-500 '
               aria-hidden='true'
@@ -167,7 +167,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
             </svg>
             Không dùng hình ảnh dạng đen trắng.
           </div>
-          <div className='flex items-center gap-1 text-gray-400 leading-8'>
+          <div className='flex items-center gap-1 text-gray-400 mb-2'>
             <svg
               className='w-[18px] h-[18px] text-red-500 '
               aria-hidden='true'
@@ -189,7 +189,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
             <div className='flex gap-2 items-center flex-col md:flex-row'>
               <label
                 htmlFor='mattruoc'
-                className='bg-[#f2f0f0] cursor-pointer border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'
+                className='bg-[#f2f0f0] cursor-pointer border w-[271px] rounded-2xl md:rounded-md md:w-[140px]  h-[150px] md:h-[80px] flex flex-col items-center justify-center'
               >
                 <img src={image || cm1} className='w-full h-full object-cover' alt='cm1' />
                 <input
@@ -204,7 +204,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
               </label>
               <label
                 htmlFor='matsau'
-                className='bg-[#f2f0f0] cursor-pointer border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'
+                className='bg-[#f2f0f0] cursor-pointer border w-[271px] rounded-2xl md:rounded-md md:w-[140px]  h-[150px] md:h-[80px] flex flex-col items-center justify-center'
               >
                 <img src={image2 || cm2} className='w-full h-full object-cover' alt='cm2' />
                 <input
@@ -219,7 +219,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
               </label>
               <label
                 htmlFor='chandung'
-                className='bg-[#f2f0f0] cursor-pointer border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'
+                className='bg-[#f2f0f0] cursor-pointer border w-[271px] rounded-2xl md:rounded-md md:w-[140px]  h-[150px] md:h-[80px] flex flex-col items-center justify-center'
               >
                 <img src={image3 || cm3} className='w-full h-full object-cover' alt='cm3' />
                 <input
