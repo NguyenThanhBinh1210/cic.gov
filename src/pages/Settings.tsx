@@ -1,8 +1,37 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import NotifyCMNDModal from '~/modules/modal/NotifyCMNDModal'
 
 const Settings = () => {
   const [showNoti, setShowNoti] = useState(false)
+  const [data, setData] = useState([])
+  const [showList, setShowList] = useState(false)
+  const [filteredData, setFilteredData] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [formState, setFormState] = useState<any>({})
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://api.vietqr.io/v2/banks')
+        setData(response.data.data)
+        setFilteredData(response.data.data) // Initialize filteredData with all data
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
+  const handleInputChange = (event: any) => {
+    const term = event.target.value.toLowerCase()
+    setSearchTerm(term)
+
+    if (data.length > 0) {
+      const filtered = data.filter((item: any) => item.name.toLowerCase().includes(term))
+      setFilteredData(filtered)
+    }
+  }
   return (
     <div className='py-3 md:py-10 px-3 md:px-6'>
       <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
@@ -113,6 +142,67 @@ const Settings = () => {
               </svg>{' '}
               Chọn file
             </button>
+          </div>
+        </div>
+      </div>
+      <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
+        <h2 className='font-bold text-[#333399] border-b pb-1'>Liên kết ngân hàng</h2>
+
+        <div className='grid grid-cols-1 gap-y-3 lg:grid-cols-3 md:gap-x-6  py-3'>
+          <div className='flex items-center'>
+            <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Ngân hàng</div>
+            <div
+              onClick={() => {
+                setShowList(true)
+              }}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start `}
+            >
+              <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
+              {showList && (
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className='absolute bg-gray-200 w-full p-1 h-max top-full left-0'
+                >
+                  <input
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                    type='text'
+                    className='w-full bg-white py-1 rounded text-sm px-3 border'
+                  />
+                  <div className='h-[300px] overflow-y-auto bg-white p-1 '>
+                    {filteredData?.map((item: any) => (
+                      <div
+                        onClick={() => {
+                          setFormState({ ...formState, bankName: item.shortName })
+                          setShowList(false)
+                        }}
+                        key={item.id}
+                        className='flex items-center p-[5px] py-2 gap-x-[5px] hover:bg-gray-200 cursor-pointer'
+                      >
+                        <img src={item.logo} alt='' className='w-[64px] object-cover' />
+                        <span>{item.shortName}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className='flex items-center'>
+            <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Tên chủ tài khoản</div>
+            <div className='flex items-center flex-1 border rounded overflow-hidden'>
+              <div className='flex-1 p-1.5'>
+                <input type='text' className='w-full ' placeholder='' />
+              </div>
+            </div>
+          </div>
+          <div className='flex items-center'>
+            <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Số tài khoản</div>
+            <div className='flex items-center flex-1 border rounded overflow-hidden'>
+              <div className='flex-1 p-1.5'>
+                <input type='text' className='w-full ' placeholder='' />
+              </div>
+            </div>
           </div>
         </div>
       </div>

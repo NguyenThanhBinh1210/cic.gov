@@ -15,9 +15,8 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
     <>
       <BaseModal show={showMenu} onClose={onCloseMenu} />
       <div
-        className={`flex ${
-          showMenu ? '-translate-x-0' : '-translate-x-full'
-        } transition-all z-50  lg:-translate-x-0 fixed lg:static pt-10 lg:pt-0 bg-white lg:bg-transparent top-0 left-0 w-max h-screen lg:h-max justify-start flex-col lg:flex-row items-center lg:w-full lg:justify-center`}
+        className={`flex ${showMenu ? '-translate-x-0' : '-translate-x-full'
+          } transition-all z-50  lg:-translate-x-0 fixed lg:static pt-10 lg:pt-0 bg-white lg:bg-transparent top-0 left-0 w-max h-screen lg:h-max justify-start flex-col lg:flex-row items-center lg:w-full lg:justify-center`}
       >
         {menuLink.map((item, index) => (
           <div
@@ -80,6 +79,45 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
             <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
               <div className='w-full h-full px-8 flex gap-x-1 items-center'>
                 <Link to={'/profile/loan-demand'}>Quản lý</Link>
+              </div>
+            </div>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <Link to={'/profile/settings'}>Xác minh CCCD/CMND</Link><svg
+                  className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke='currentColor'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='3'
+                    d='m5 12 4.7 4.5 9.3-9'
+                  />
+                </svg>{' '}
+              </div>
+            </div>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <Link to={'/profile/settings'}>liên kết ngân hàng</Link>
+                <svg
+                  className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke='currentColor'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='3'
+                    d='m5 12 4.7 4.5 9.3-9'
+                  />
+                </svg>{' '}
               </div>
             </div>
           </>

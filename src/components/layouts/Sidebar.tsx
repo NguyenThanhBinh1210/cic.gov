@@ -10,31 +10,78 @@ const Sidebar = () => {
       </div>
       <ul className='px-3 mt-6'>
         <li
-          className={`py-1 px-2 ${
-            location === '/profile/settings' && 'bg-[#333399] text-white'
-          } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
+          className={`py-1 px-2 ${location === '/profile/settings' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
         >
           <Link className='w-full block' to={'/profile/settings'}>
             Hồ sơ tài khoản
           </Link>
         </li>
         <li
-          className={`py-1 px-2 ${
-            location === '/profile/loan-demand' && 'bg-[#333399] text-white'
-          } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+          className={`py-1 px-2 ${location === '/profile/loan-demand' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
         >
           <Link className='w-full block' to={'/profile/loan-demand'}>
             Quản lý
           </Link>
         </li>
         <li
-          className={`py-1 px-2 ${
-            location === '/profile/password' && 'bg-[#333399] text-white'
-          } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+          className={`py-1 px-2 ${location === '/profile/password' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
         >
           <Link className='w-full block' to={'/profile/password'}>
             Đổi mật khẩu
           </Link>
+        </li>
+
+      </ul>
+
+      <ul className='px-3 mt-6 '>
+        <li
+          className={`py-1 px-2 
+             flex items-center justify-between border-t cursor-pointer transition-all border-b`}
+        >
+          <Link className='w-full block' to={'/profile/settings'}>
+            Xác minh CMND/CCCD
+          </Link>
+          <svg
+            className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
+            aria-hidden='true'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+          >
+            <path
+              stroke='currentColor'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='3'
+              d='m5 12 4.7 4.5 9.3-9'
+            />
+          </svg>{' '}
+        </li>
+        <li
+          className={`py-1 px-2 
+             flex items-center justify-between  cursor-pointer transition-all border-b`}
+        >
+          <Link className='w-full block' to={'/profile/settings'}>
+            Liên kết ngân hàng
+          </Link>
+          <svg
+            className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
+            aria-hidden='true'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+          >
+            <path
+              stroke='currentColor'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='3'
+              d='m5 12 4.7 4.5 9.3-9'
+            />
+          </svg>{' '}
         </li>
       </ul>
     </div>
