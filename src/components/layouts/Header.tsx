@@ -22,7 +22,7 @@ const Header = () => {
         </Link>
         <div className='flex-1 flex flex-col justify-center'>
           <div style={{ zIndex: !showMenu ? 1000 : 1 }} className='flex flex-col lg:flex-row justify-between md:mb-4'>
-            <Link to={'/'}>
+            <Link to={'/'} className='w-max'>
               <img src={logotext} alt='logotext' className='w-[200px] md:w-full max-w-[441px]' />
             </Link>
             <div className='hidden md:block'>

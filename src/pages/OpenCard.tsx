@@ -4,6 +4,11 @@ import { useContext, useState } from 'react'
 import { AppContext } from '~/contexts/app.context'
 
 const OpenCard = () => {
+  const formatTime = (timeInSeconds: any) => {
+    const minutes = Math.floor(timeInSeconds / 60)
+    const seconds = timeInSeconds % 60
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+  }
   const { showSidebar, setShowSidebar } = useContext(AppContext)
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen((cur) => !cur)
@@ -15,9 +20,37 @@ const OpenCard = () => {
     setValueView(value)
   }
   return (
-    <div className='px-2'>
+    <div className='px-2 md:px-8 max-w-[500px] md:shadow-md mx-2 rounded-md md:mx-auto my-4  pb-10 md:pb-20'>
+      <div className='flex items-center justify-between   py-2'>
+
+        <div className='text-black flex gap-1 items-center'>
+          <span className='text-sm font-medium'>Phiên giao dịch tiếp theo:</span>
+          <span className='text-base'>00000</span>
+        </div>
+        <div className='flex items-center gap-1 text-black'>
+          <svg fill='black' xmlns='http://www.w3.org/2000/svg' height='16' width='16' viewBox='0 0 512 512'>
+            <path d='M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z' />
+          </svg>
+          <span>{formatTime(600)}</span>
+        </div>
+      </div>
+      <div className='text-black flex gap-1 items-center  py-2'>
+        <span className='text-sm font-medium'>Phiên giao dịch hiện tại:</span>
+        <span className='text-base'>00000</span>
+      </div>
+      <div className='flex p-2.5 gap-x-4 items-center justify-center  relative'>
+        {Array.from(String('00000'), Number).map((item: number, index: number) => (
+          <div
+            key={index}
+            // style={{ boxShadow: '0 -4px 8px rgba(238, 198, 110, 0.2)' }}
+            className='bg-white border shadow-md w-[45px] h-[45px] text-black text-2xl flex items-center justify-center'
+          >
+            {item}
+          </div>
+        ))}
+      </div>
       <div className='flex items-center justify-between'>
-        <h2 className='mt-4 mb-4 text-[28px] font-medium'>Nộp đơn tín dụng</h2>
+        <h2 className='mt-4 mb-4 text-xl md:text-[28px] font-medium'>Nộp đơn tín dụng</h2>
         <button
           onClick={() => setShowSidebar(!showSidebar)}
           className='text-white lg:hidden flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-auto   focus:outline-none'
@@ -25,13 +58,13 @@ const OpenCard = () => {
           Xem thông tin
         </button>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-2 mb-4'>
+      <div className='grid grid-cols-1  gap-2 mb-4'>
         <Select className='' placeholder={''} color='blue' label='Nộp cho'>
           <Option>Nộp cho nhân viên</Option>
           <Option>Nộp cho QLCC</Option>
         </Select>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
+      <div className='grid grid-cols-1 gap-2'>
         <button
           type='button'
           className='text-white transition-all bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none '
