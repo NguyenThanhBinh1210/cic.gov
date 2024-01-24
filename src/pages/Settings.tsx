@@ -15,6 +15,9 @@ const Settings = () => {
     nameUserBank: '',
     accountNumber: ''
   }
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = () => setOpen(!open)
   const { data: paymentInfo } = useQuery({
     queryKey: ['get-payment'],
     queryFn: () => {
@@ -36,7 +39,6 @@ const Settings = () => {
       setFormState(newForm)
     }
   }, [paymentInfo?.data, profile?._id])
-  const [showNoti, setShowNoti] = useState(false)
   const [data, setData] = useState([])
   const [showList, setShowList] = useState(false)
   const [filteredData, setFilteredData] = useState([])
@@ -181,7 +183,7 @@ const Settings = () => {
             </div>
             <button
               type='button'
-              onClick={() => setShowNoti(true)}
+              onClick={handleOpen}
               className='text-white flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 :bg-blue-600 :hover:bg-[#007bff] focus:outline-none :focus:ring-blue-800'
             >
               <svg
@@ -374,7 +376,10 @@ const Settings = () => {
           Cập nhật thông tin
         </button>
       </div>
-      <NotifyCMNDModal showNoti={showNoti} onCloseNoti={() => setShowNoti(false)}></NotifyCMNDModal>
+      {/* <Dialog placeholder={''} open={open} handler={handleOpen}>
+
+      </Dialog> */}
+      <NotifyCMNDModal showNoti={open} onCloseNoti={handleOpen}></NotifyCMNDModal>
     </div>
   )
 }

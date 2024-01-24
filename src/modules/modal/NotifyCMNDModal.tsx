@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BaseModal from '~/components/Modal/BaseModal'
 import cm1 from '~/assets/images/a1.png'
 import cm2 from '~/assets/images/a2 (1).png'
 import cm3 from '~/assets/images/a3.png'
 import { useState } from 'react'
+import { Dialog } from '@material-tailwind/react'
 const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onCloseNoti: () => void }) => {
   const [formState, setFormState] = useState<any>({})
   const [image, setImage] = useState<any>(null)
@@ -55,7 +55,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
     }
   }
   return (
-    <BaseModal show={showNoti} onClose={onCloseNoti}>
+    <Dialog placeholder={''} open={showNoti} handler={onCloseNoti}>
       <div className='max-h-[90vh] overflow-y-auto'>
         <div className='flex items-center justify-between bg-[#333399] py-2 px-2 rounded-t-md text-white text-base font-bold'>
           <h1>Chọn ảnh CMND/ CCCD</h1>
@@ -248,7 +248,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
           </div>
         </div>
       </div>
-    </BaseModal>
+    </Dialog>
   )
 }
 

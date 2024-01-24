@@ -2,13 +2,16 @@
 import { useContext, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import gỉl from '~/assets/images/girl1.png'
-import RechargeModal from '~/modules/modal/RechargeModal'
 import BaseModal from '../Modal/BaseModal'
 import { AppContext } from '~/contexts/app.context'
+import { Dialog } from '@material-tailwind/react'
 const Sidebar = () => {
   const location = useLocation().pathname
-  const [showRecharge, setShowRecharge] = useState(false)
+
   const { showSidebar, setShowSidebar } = useContext(AppContext)
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = () => setOpen(!open)
   return (
     <>
       <BaseModal show={showSidebar} onClose={() => setShowSidebar(false)}></BaseModal>
@@ -28,7 +31,7 @@ const Sidebar = () => {
             <span>Đóng băng:</span> <span className='line-through font-bold text-orange-900'>100.000 đ</span>
           </div>
           <button
-            onClick={() => setShowRecharge(true)}
+            onClick={handleOpen}
             className='bg-[#333399] block mt-2 mx-auto text-white rounded py-2 px-6 mb-4 shadow-md hover:shadow-none transition-all hover:translate-y-0.5'
           >
             Rút tiền
@@ -113,7 +116,38 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <RechargeModal showRecharge={showRecharge} onCloseRecharge={() => setShowRecharge(false)}></RechargeModal>
+      <Dialog placeholder={''} open={open} handler={handleOpen}>
+        <div className=' max-w-[945px] mx-auto rounded overflow-hidden'>
+          <div className='p-4 bg-[#333399] font-medium text-white text-2xl pl-6'>Rút tiền</div>
+          <div className='p-4 bg-white border-b'>
+            <div>
+              <span>Số dư hiện có:</span>
+              <span className='ml-1 font-bold'>414.434 ₫</span>
+            </div>
+            <div className='flex flex-col mb-4 mt-4'>
+              <div className='w-[110px] md:w-[150px] mb-1 '>Số tiền cần rút:</div>
+              <div className='flex items-center flex-1 border rounded overflow-hidden'>
+                <div className='flex-1 p-1.5'>
+                  <input type='text' className='w-[300px] ' placeholder='Nhập số tiền' />
+                </div>
+              </div>
+            </div>
+            <div>
+              <span>Số tiền rút tối thiểu:</span>
+              <span className='ml-1 font-bold'>100.000 ₫</span>
+            </div>
+          </div>
+          <div className='p-4 bg-white flex items-center justify-between'>
+            <button className='bg-[#333399] text-white  py-1.5 px-3 rounded-md'>Rút hết</button>
+            <div className='flex items-center gap-2'>
+              <button onClick={handleOpen} className='bg-gray-600 text-white  py-1.5 px-3 rounded-md'>
+                Đóng
+              </button>
+              <button className='bg-[#4545d4] text-white  py-1.5 px-3 rounded-md'>Rút</button>
+            </div>
+          </div>
+        </div>
+      </Dialog>
     </>
   )
 }

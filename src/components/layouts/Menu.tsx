@@ -2,15 +2,16 @@
 import { menuLink } from '~/constants/renaral.const'
 import BaseModal from '../Modal/BaseModal'
 import { Link, useNavigate } from 'react-router-dom'
-import AboutModal from '~/modules/modal/AboutModal'
 import { useContext, useState } from 'react'
 import { AppContext } from '~/contexts/app.context'
+import { Dialog } from '@material-tailwind/react'
 
 const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () => void }) => {
   const navigate = useNavigate()
-  const [showAbout, setShowAbout] = useState(false)
   const { isAuthenticated } = useContext(AppContext)
+  const [open, setOpen] = useState(false)
 
+  const handleOpen = () => setOpen(!open)
   return (
     <>
       <BaseModal show={showMenu} onClose={onCloseMenu} />
@@ -30,7 +31,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
                   navigate(item.path)
                 }
                 if (item.title === 'Giới thiệu') {
-                  setShowAbout(true)
+                  handleOpen()
                 }
               }}
               className={`w-full h-full px-8 flex gap-x-1 items-center ${item.title === 'Menu' && 'px-20'}`}
@@ -155,8 +156,26 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
           />
         </svg>
       </div>
-
-      <AboutModal showAbout={showAbout} onCloseAbout={() => setShowAbout(false)} />
+      <Dialog placeholder={''} open={open} handler={handleOpen}>
+        <div className=' max-w-[945px] mx-auto rounded overflow-hidden'>
+          <div className='p-4 bg-[#ffa500] font-medium text-white text-2xl pl-6'>Về chúng tôi</div>
+          <div className='p-4 bg-white border-b'>
+            Trung tâm Thông Tin Tín Dụng Quốc gia Việt Nam (CIC) là đơn vị sự nghiệp trực thuộc Ngân hàng Nhà nước Việt
+            Nam. Hoạt động với mục tiêu hạn chế, ngăn ngừa rủi ro cho hệ thống tổ chức tín dụng Việt Nam. Đồng thời kết
+            nối nhu cầu tín dụng giữa cá nhân, doanh nghiệp với các Tổ chức tín dụng nhằm hạn chế tín dụng đen, cải
+            thiện chỉ số tiếp cận tín dụng của Việt Nam trên bảng xếp hạng của World Bank. Cổng thông tin "Kết nối khách
+            hàng vay" có địa chỉ: http://cic.gov.vn . Tại đây cá nhân và doanh nghiệp có thể tìm kiếm gói vay, đăng ký
+            nhu cầu vay và khai thác báo cáo Thông tin tín dụng, Xếp hạng tín dụng về bản thân, doanh nghiệp mình. Cổng
+            thông tin này khác với địa chỉ http://cic.org.vn - Cũng là của CIC nhưng dành riêng cho các TCTD khai thác
+          </div>
+          <div className='p-4 bg-white'>
+            <button onClick={handleOpen} className='bg-red-600 text-white block mx-auto py-1.5 px-3 rounded-md'>
+              Đóng
+            </button>
+          </div>
+        </div>
+      </Dialog>
+      {/* <AboutModal showAbout={showAbout} onCloseAbout={() => setShowAbout(false)} /> */}
     </>
   )
 }
