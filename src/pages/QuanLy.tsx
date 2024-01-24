@@ -3,12 +3,21 @@ import ic1 from '~/assets/images/ic1.png'
 import ic2 from '~/assets/images/ic2.png'
 import ic3 from '~/assets/images/ic3.png'
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AppContext } from '~/contexts/app.context'
 const QuanLy = () => {
   const [open, setOpen] = useState(0)
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value)
+  const { showSidebar, setShowSidebar } = useContext(AppContext)
+
   return (
     <div className='py-3 md:py-10 px-3 md:px-6'>
+      <button
+        onClick={() => setShowSidebar(!showSidebar)}
+        className='text-white mb-3 lg:hidden flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-auto   focus:outline-none'
+      >
+        Xem thông tin
+      </button>
       <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
         <h2 className='font-bold text-[#333399] border-b pb-1'>THỐNG KÊ</h2>
         <div className='mt-3 grid grid-cols-1 md:grid-cols-3 gap-3'>

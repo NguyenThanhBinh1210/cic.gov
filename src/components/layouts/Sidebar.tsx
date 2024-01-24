@@ -14,7 +14,9 @@ const Sidebar = () => {
       <BaseModal show={showSidebar} onClose={() => setShowSidebar(false)}></BaseModal>
       <div
         className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${
-          location.includes('profile') ? 'fixed top-0 left-0  h-screen z-50 lg:static' : 'hidden  lg:block'
+          location.includes('profile') || location.includes('open-card')
+            ? 'fixed top-0 left-0  h-screen z-50 lg:static'
+            : 'hidden  lg:block'
         } w-[275px] lg:translate-x-0  bg-[#f8f8f8] h-screen transition-all`}
       >
         <div className='mt-10 px-3'>
