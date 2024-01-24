@@ -4,19 +4,12 @@ import ic2 from '~/assets/images/ic2.png'
 import ic3 from '~/assets/images/ic3.png'
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react'
 import { useState } from 'react'
-import RechargeModal from '~/modules/modal/RechargeModal'
 const QuanLy = () => {
-  const [showRecharge, setShowRecharge] = useState(false)
   const [open, setOpen] = useState(0)
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value)
   return (
     <div className='py-3 md:py-10 px-3 md:px-6'>
-      <button
-        onClick={() => setShowRecharge(true)}
-        className='bg-[#333399] block ml-auto text-white rounded py-2 px-6 mb-4 shadow-md hover:shadow-none transition-all hover:translate-y-0.5'
-      >
-        Rút tiền
-      </button>
+
       <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
         <h2 className='font-bold text-[#333399] border-b pb-1'>THỐNG KÊ</h2>
         <div className='mt-3 grid grid-cols-1 md:grid-cols-3 gap-3'>
@@ -46,7 +39,7 @@ const QuanLy = () => {
       <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
         <Accordion placeholder={''} open={open === 1} icon={<Icon id={1} open={open} />}>
           <AccordionHeader
-            className='font-bold pt-2 text-[#333399] border-b pb-1'
+            className='font-bold normal-case text-md pt-2 text-[#333399] border-b pb-1'
             placeholder={''}
             onClick={() => handleOpen(1)}
           >
@@ -142,7 +135,7 @@ const QuanLy = () => {
         </Accordion>
         <Accordion placeholder={''} open={open === 2} icon={<Icon id={2} open={open} />}>
           <AccordionHeader
-            className='font-bold pt-2 text-[#333399] border-b pb-1'
+            className='font-bold normal-case text-md pt-2 text-[#333399] border-b pb-1'
             placeholder={''}
             onClick={() => handleOpen(2)}
           >
@@ -237,7 +230,6 @@ const QuanLy = () => {
           </AccordionBody>
         </Accordion>
       </div>
-      <RechargeModal showRecharge={showRecharge} onCloseRecharge={() => setShowRecharge(false)}></RechargeModal>
     </div>
   )
 }

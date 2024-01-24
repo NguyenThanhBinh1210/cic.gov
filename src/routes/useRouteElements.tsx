@@ -17,6 +17,7 @@ import ChangePassword from '~/pages/ChangePassword'
 import ProfileLayout from '~/layouts/ProfileLayout'
 import Settings from '~/pages/Settings'
 import QuanLy from '~/pages/QuanLy'
+import OpenCard from '~/pages/OpenCard'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -77,7 +78,15 @@ const useRouteElements = () => {
               <QuanLy />
             </ProfileLayout>
           )
-        }
+        },
+        {
+          path: '/open-card',
+          element: (
+            <ProfileLayout>
+              <OpenCard />
+            </ProfileLayout>
+          )
+        },
       ]
     },
     {

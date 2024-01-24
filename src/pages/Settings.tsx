@@ -7,7 +7,7 @@ import { AppContext } from '~/contexts/app.context'
 import NotifyCMNDModal from '~/modules/modal/NotifyCMNDModal'
 
 const Settings = () => {
-  const { profile } = useContext(AppContext)
+  const { profile, showSidebar, setShowSidebar } = useContext(AppContext)
   const queryClient = useQueryClient()
   const initialFromState = {
     userId: profile?._id,
@@ -81,7 +81,13 @@ const Settings = () => {
     }
   }
   return (
-    <div className='py-3 md:py-10 px-3 md:px-6'>
+    <div className='py-3  px-3 md:px-6'>
+      <button
+        onClick={() => setShowSidebar(true)}
+        className='text-white mb-3 lg:hidden flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-auto   focus:outline-none'
+      >
+        Xem thông tin
+      </button>
       <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
         <h2 className='font-bold text-[#333399] border-b pb-1'>Xác minh CCCD/CMND</h2>
         <div className='flex md:items-center col-span-3 flex-col md:flex-row mt-3'>
@@ -205,9 +211,8 @@ const Settings = () => {
                   setShowList(true)
                 }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
-                paymentInfo?.data !== null && 'bg-gray-50'
-              } `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${paymentInfo?.data !== null && 'bg-gray-50'
+                } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (

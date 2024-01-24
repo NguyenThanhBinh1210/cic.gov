@@ -8,6 +8,8 @@ interface AppContextInterface {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   profile: Profile | null
   setProfile: React.Dispatch<React.SetStateAction<Profile | null>>
+  showSidebar: boolean
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
   reset: () => void
 }
 export const getInitialAppContext: () => AppContextInterface = () => ({
@@ -15,6 +17,8 @@ export const getInitialAppContext: () => AppContextInterface = () => ({
   setIsAuthenticated: () => null,
   profile: getProfileFromLS(),
   setProfile: () => null,
+  showSidebar: false,
+  setShowSidebar: () => null,
   reset: () => null
 })
 const initialAppContext = getInitialAppContext()
@@ -24,6 +28,7 @@ export const AppContext = createContext<AppContextInterface>(initialAppContext)
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAppContext.isAuthenticated)
   const [profile, setProfile] = useState<Profile | null>(initialAppContext.profile)
+  const [showSidebar, setShowSidebar] = useState(false)
 
   const reset = () => {
     setIsAuthenticated(false)
@@ -37,7 +42,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         setIsAuthenticated,
         profile,
         setProfile,
-        reset
+        reset,
+        showSidebar,
+        setShowSidebar
       }}
     >
       {children}

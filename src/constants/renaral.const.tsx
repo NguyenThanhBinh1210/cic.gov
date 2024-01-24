@@ -40,11 +40,11 @@ export const menuLink = [
     children: [
       {
         title: 'Mở tín dụng',
-        path: '/'
+        path: '/open-card'
       },
       {
         title: 'Lịch sử tín dụng',
-        path: '/'
+        path: '/profile/loan-demand'
       }
     ]
   },
