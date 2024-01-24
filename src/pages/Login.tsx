@@ -1,8 +1,39 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useContext, useState } from 'react'
+import { useMutation } from 'react-query'
+import { Link, useNavigate } from 'react-router-dom'
+import { loginAccount } from '~/apis/auth.api'
+import { AppContext } from '~/contexts/app.context'
 
 const Login = () => {
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const [showPass, setShowPass] = useState(false)
+  const initialFromState = {
+    username: '',
+    password: ''
+  }
+  const [formState, setFormState] = useState(initialFromState)
+  const handleChange = (name: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, [name]: event.target.value }))
+  }
+  const mutationLogin = useMutation((body: any) => {
+    return loginAccount(body)
+  })
+  const navigate = useNavigate()
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log(formState)
+    mutationLogin.mutate(formState, {
+      onSuccess: (dataUser) => {
+        setIsAuthenticated(true)
+        setProfile(dataUser.data.user)
+        navigate('/')
+      },
+      onError: (err: any) => {
+        alert(err?.response.data.errMessage)
+      }
+    })
+  }
   return (
     <div className='w-full h-screen flex items-center justify-center'>
       <div className='max-w-[500px] w-full mx-auto px-3 '>
@@ -11,13 +42,15 @@ const Login = () => {
         </h2>
         <h3 className='text-[#414069] text-lg text-center font-medium my-2'>DÀNH CHO TỔ CHỨC TÍN DỤNG</h3>
         <h4 className='text-[#a1a1a1] text-[20px] text-center '>Đăng nhập</h4>
-        <form action=''>
+        <form action='' onSubmit={handleSubmit}>
           <div className='mb-3'>
             <label htmlFor='name'>Tên tài khoản</label>
             <div className='p-2 border rounded-md mt-2'>
               <input
                 id='name'
                 type='text'
+                value={formState.username}
+                onChange={handleChange('username')}
                 placeholder='Nhập tên tài khoản của quý khách'
                 className='text-base w-full'
               />
@@ -31,6 +64,8 @@ const Login = () => {
                 type={showPass ? 'text' : 'password'}
                 placeholder='Nhập mật khẩu của quý khách'
                 className='text-base w-full'
+                value={formState.password}
+                onChange={handleChange('password')}
               />
               <button onClick={() => setShowPass(!showPass)} type='button' className='border-l px-2'>
                 {showPass ? (
@@ -62,7 +97,10 @@ const Login = () => {
           <Link to='/' className='text-[#007bff] text-right block hover:text-[#0051ff]'>
             Quý khách quên mật khẩu ?
           </Link>
-          <button className='block bg-[#007bff] text-white transition-all text-base w-full py-2 rounded-md mt-3 mb-3 hover:bg-[#0956fb]'>
+          <button
+            type='submit'
+            className='block bg-[#007bff] text-white transition-all text-base w-full py-2 rounded-md mt-3 mb-3 hover:bg-[#0956fb]'
+          >
             Đăng nhập
           </button>
         </form>

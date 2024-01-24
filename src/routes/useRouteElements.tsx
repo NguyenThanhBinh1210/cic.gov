@@ -23,14 +23,14 @@ const useRouteElements = () => {
     const { isAuthenticated } = useContext(AppContext)
     return isAuthenticated ? <Outlet /> : <Navigate to='login' />
   }
-  // function RejectedRoute() {
-  //   const { isAuthenticated } = useContext(AppContext)
-  //   return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
-  // }
+  function RejectedRoute() {
+    const { isAuthenticated } = useContext(AppContext)
+    return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
+  }
   const routeElements = useRoutes([
     {
       path: '',
-      element: <ProtecedRoute />,
+      element: <RejectedRoute />,
       children: [
         {
           path: 'login',
@@ -55,15 +55,39 @@ const useRouteElements = () => {
       element: <ProtecedRoute />,
       children: [
         {
-          path: '/',
-          index: true,
+          path: '/profile/password',
           element: (
-            <HomeLayout>
-              <Home />
-            </HomeLayout>
+            <ProfileLayout>
+              <ChangePassword />
+            </ProfileLayout>
+          )
+        },
+        {
+          path: '/profile/settings',
+          element: (
+            <ProfileLayout>
+              <Settings />
+            </ProfileLayout>
+          )
+        },
+        {
+          path: '/profile/loan-demand',
+          element: (
+            <ProfileLayout>
+              <QuanLy />
+            </ProfileLayout>
           )
         }
       ]
+    },
+    {
+      path: '/',
+      index: true,
+      element: (
+        <HomeLayout>
+          <Home />
+        </HomeLayout>
+      )
     },
     {
       path: '/loan-pack',
@@ -111,30 +135,6 @@ const useRouteElements = () => {
         <HomeLayout>
           <CreateLoanPack />
         </HomeLayout>
-      )
-    },
-    {
-      path: '/profile/password',
-      element: (
-        <ProfileLayout>
-          <ChangePassword />
-        </ProfileLayout>
-      )
-    },
-    {
-      path: '/profile/settings',
-      element: (
-        <ProfileLayout>
-          <Settings />
-        </ProfileLayout>
-      )
-    },
-    {
-      path: '/profile/loan-demand',
-      element: (
-        <ProfileLayout>
-          <QuanLy />
-        </ProfileLayout>
       )
     },
     {

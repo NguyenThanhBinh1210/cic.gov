@@ -9,7 +9,10 @@ import { useContext, useState } from 'react'
 import { AppContext } from '~/contexts/app.context'
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false)
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, profile, reset } = useContext(AppContext)
+  const handleLogout = () => {
+    reset()
+  }
   return (
     <div className='relative z-50'>
       <img src={navbg} alt='navbg' className='absolute top-0 left-0 w-full h-full' />
@@ -40,7 +43,7 @@ const Header = () => {
                 {isAuthenticated && (
                   <div className='group relative z-50'>
                     <button className='border border-white px-1.5 font-medium rounded text-blue-800'>
-                      Nguyễn Thanh Bình
+                      {profile?.username}
                     </button>
                     <ul className='bg-white group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all py-1 text-blue-800 text-base rounded absolute top-full right-0 w-max h-max'>
                       <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
@@ -53,7 +56,10 @@ const Header = () => {
                           Đổi mật khẩu
                         </Link>
                       </li>
-                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
+                      <li
+                        onClick={handleLogout}
+                        className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'
+                      >
                         Đăng xuất
                       </li>
                     </ul>

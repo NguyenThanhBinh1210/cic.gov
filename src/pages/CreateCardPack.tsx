@@ -1,6 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import girl2 from '~/assets/images/girl2.png'
 import bg from '~/assets/images/bg-card.png'
+import { useState } from 'react'
 const CreateCardPack = () => {
+  const [valueView, setValueView] = useState('')
+  const handleInputChange = (event: any) => {
+    let value = event.target.value
+    value = value.replace(/[^0-9]/g, '')
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    setValueView(value)
+  }
   return (
     <div className='relative h-max'>
       <img src={bg} alt='bg' className='hidden lg:block' />
@@ -15,7 +24,7 @@ const CreateCardPack = () => {
               <p>Đối tượng</p>
               <div className='flex items-center gap-x-10'>
                 <div className='flex items-center gap-1'>
-                  <input type='radio' id='canhan' name='doituong' />
+                  <input type='radio' id='canhan' defaultChecked name='doituong' />
                   <label htmlFor='canhan'>Cá nhân</label>
                 </div>
                 <div className='flex items-center gap-1'>
@@ -28,11 +37,11 @@ const CreateCardPack = () => {
               <p>Loại thẻ</p>
               <div className='flex items-center gap-x-10'>
                 <div className='flex items-center gap-1'>
-                  <input type='radio' id='canhan' name='doituong' />
+                  <input type='radio' id='canhan' defaultChecked name='loaithe' />
                   <label htmlFor='canhan'>Tín dụng</label>
                 </div>
                 <div className='flex items-center gap-1'>
-                  <input type='radio' id='doanhnghiep' name='doituong' />
+                  <input type='radio' id='doanhnghiep' name='loaithe' />
                   <label htmlFor='doanhnghiep'>Ghi nợ</label>
                 </div>
               </div>
@@ -45,7 +54,13 @@ const CreateCardPack = () => {
                 <div className='flex w-[200px] items-center border rounded-l overflow-hidden'>
                   <div className=' '></div>
                   <div className='flex-1 p-1.5'>
-                    <input type='text' className='w-full' placeholder='Thu nhập' />
+                    <input
+                      onChange={handleInputChange}
+                      value={valueView}
+                      type='text'
+                      className='w-full'
+                      placeholder='Thu nhập'
+                    />
                   </div>
                 </div>
                 <div className='bg-[#e9ecef] py-1.5 border rounded-r px-2'>VND</div>

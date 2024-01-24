@@ -1,7 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react'
 import girl2 from '~/assets/images/A2.png'
 import bg from '~/assets/images/bg-card.png'
 // import { Slider } from '@material-tailwind/react'
 const CreateLoanPack = () => {
+  const [valueView, setValueView] = useState('')
+  const [valueNumber, setValueNumber] = useState('100.000.000')
+  const handleInputChange = (event: any) => {
+    let value = event.target.value
+    value = value.replace(/[^0-9]/g, '')
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    setValueView(value)
+  }
+  const handleInputNumber = (event: any) => {
+    let value = event.target.value
+    value = value.replace(/[^0-9]/g, '')
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    setValueNumber(value)
+  }
   return (
     <div className='relative h-max'>
       <img src={bg} alt='bg' className='hidden lg:block' />
@@ -43,7 +59,8 @@ const CreateLoanPack = () => {
               <input
                 type='text'
                 id='num'
-                defaultValue={'100.000.000'}
+                value={valueNumber}
+                onChange={handleInputNumber}
                 className='w-full  mt-2 max-w-[320px] rounded block border p-1.5 px-3'
               />
             </div>
@@ -98,7 +115,13 @@ const CreateLoanPack = () => {
                 <div className='flex w-[200px] items-center border rounded-l overflow-hidden'>
                   <div className=' '></div>
                   <div className='flex-1 p-1.5'>
-                    <input type='text' className='w-full' placeholder='Thu nhập' />
+                    <input
+                      onChange={handleInputChange}
+                      value={valueView}
+                      type='text'
+                      className='w-full'
+                      placeholder='Thu nhập'
+                    />
                   </div>
                 </div>
                 <div className='bg-[#e9ecef] py-1.5 border rounded-r px-2'>VND</div>

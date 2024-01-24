@@ -1,21 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { createPayment, getPayment } from '~/apis/payment.api'
+import { AppContext } from '~/contexts/app.context'
 import NotifyCMNDModal from '~/modules/modal/NotifyCMNDModal'
 
 const Settings = () => {
+  const { profile } = useContext(AppContext)
+  const queryClient = useQueryClient()
+  const initialFromState = {
+    userId: profile?._id,
+    bankName: '',
+    nameUserBank: '',
+    accountNumber: ''
+  }
+  const { data: paymentInfo } = useQuery({
+    queryKey: ['get-payment'],
+    queryFn: () => {
+      return getPayment({ userId: profile?._id })
+    }
+  })
+  const [formState, setFormState] = useState(initialFromState)
+  const handleChange = (name: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, [name]: event.target.value }))
+  }
+  useEffect(() => {
+    if (paymentInfo?.data !== null) {
+      const newForm = {
+        userId: profile?._id,
+        bankName: paymentInfo?.data.bankName,
+        nameUserBank: paymentInfo?.data.nameUserBank,
+        accountNumber: paymentInfo?.data.accountNumber
+      }
+      setFormState(newForm)
+    }
+  }, [paymentInfo?.data, profile?._id])
   const [showNoti, setShowNoti] = useState(false)
   const [data, setData] = useState([])
   const [showList, setShowList] = useState(false)
   const [filteredData, setFilteredData] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [formState, setFormState] = useState<any>({})
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://api.vietqr.io/v2/banks')
         setData(response.data.data)
-        setFilteredData(response.data.data) // Initialize filteredData with all data
+        setFilteredData(response.data.data)
       } catch (error) {
         console.error('Error fetching data:', error)
       }
@@ -30,6 +61,23 @@ const Settings = () => {
     if (data.length > 0) {
       const filtered = data.filter((item: any) => item.name.toLowerCase().includes(term))
       setFilteredData(filtered)
+    }
+  }
+  const mutationCreate = useMutation((body: any) => {
+    return createPayment(body)
+  })
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (paymentInfo?.data === null) {
+      mutationCreate.mutate(formState, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['get-payment'] })
+          alert('Thêm ngân hàng thành công!')
+        },
+        onError: () => {
+          alert('Lỗi!')
+        }
+      })
     }
   }
   return (
@@ -148,14 +196,18 @@ const Settings = () => {
       <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
         <h2 className='font-bold text-[#333399] border-b pb-1'>Liên kết ngân hàng</h2>
 
-        <div className='grid grid-cols-1 gap-y-3 lg:grid-cols-3 md:gap-x-6  py-3'>
+        <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-y-3 lg:grid-cols-3 md:gap-x-6  py-3'>
           <div className='flex items-center'>
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Ngân hàng</div>
             <div
               onClick={() => {
-                setShowList(true)
+                if (paymentInfo?.data === null) {
+                  setShowList(true)
+                }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
+                paymentInfo?.data !== null && 'bg-gray-50'
+              } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (
@@ -191,20 +243,42 @@ const Settings = () => {
           <div className='flex items-center'>
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Tên chủ tài khoản</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='' />
+              <div className={`flex-1 p-1.5 ${paymentInfo?.data !== null && 'bg-gray-50'}`}>
+                <input
+                  disabled={paymentInfo?.data !== null}
+                  value={formState.nameUserBank}
+                  onChange={handleChange('nameUserBank')}
+                  type='text'
+                  className='w-full '
+                  placeholder=''
+                />
               </div>
             </div>
           </div>
           <div className='flex items-center'>
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Số tài khoản</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='' />
+              <div className={`flex-1 p-1.5 ${paymentInfo?.data !== null && 'bg-gray-50'}`}>
+                <input
+                  disabled={paymentInfo?.data !== null}
+                  value={formState.accountNumber}
+                  onChange={handleChange('accountNumber')}
+                  type='text'
+                  className='w-full '
+                  placeholder=''
+                />
               </div>
             </div>
           </div>
-        </div>
+          {paymentInfo?.data === null && (
+            <button
+              type='submit'
+              className='bg-[#007bff] lg:col-span-3 hover:bg-blue-600 transition-all text-white font-medium py-1 px-3 w-max mx-auto block rounded-md'
+            >
+              Xác nhận
+            </button>
+          )}
+        </form>
       </div>
       <div className='w-full bg-white shadow-lg rounded-md p-2.5'>
         <h2 className='font-bold text-[#333399] border-b pb-1'>THÔNG TIN TÀI KHOẢN CỦA QUÝ KHÁCH</h2>
