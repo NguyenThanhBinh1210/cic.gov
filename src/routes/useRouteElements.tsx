@@ -86,7 +86,7 @@ const useRouteElements = () => {
               <OpenCard />
             </ProfileLayout>
           )
-        },
+        }
       ]
     },
     {

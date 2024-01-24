@@ -83,7 +83,7 @@ const Settings = () => {
   return (
     <div className='py-3  px-3 md:px-6'>
       <button
-        onClick={() => setShowSidebar(true)}
+        onClick={() => setShowSidebar(!showSidebar)}
         className='text-white mb-3 lg:hidden flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-auto   focus:outline-none'
       >
         Xem thông tin
@@ -211,8 +211,9 @@ const Settings = () => {
                   setShowList(true)
                 }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${paymentInfo?.data !== null && 'bg-gray-50'
-                } `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
+                paymentInfo?.data !== null && 'bg-gray-50'
+              } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (

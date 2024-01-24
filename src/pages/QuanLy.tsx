@@ -9,7 +9,6 @@ const QuanLy = () => {
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value)
   return (
     <div className='py-3 md:py-10 px-3 md:px-6'>
-
       <div className='w-full bg-white shadow-md rounded-md p-2.5 mb-4'>
         <h2 className='font-bold text-[#333399] border-b pb-1'>THỐNG KÊ</h2>
         <div className='mt-3 grid grid-cols-1 md:grid-cols-3 gap-3'>

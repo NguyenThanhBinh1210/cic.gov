@@ -13,8 +13,9 @@ const Sidebar = () => {
     <>
       <BaseModal show={showSidebar} onClose={() => setShowSidebar(false)}></BaseModal>
       <div
-        className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${location.includes('profile') ? 'fixed top-0 left-0  h-screen z-50 lg:static' : 'hidden  lg:block'
-          } w-[275px] lg:translate-x-0  bg-[#f8f8f8] h-screen transition-all`}
+        className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${
+          location.includes('profile') ? 'fixed top-0 left-0  h-screen z-50 lg:static' : 'hidden  lg:block'
+        } w-[275px] lg:translate-x-0  bg-[#f8f8f8] h-screen transition-all`}
       >
         <div className='mt-10 px-3'>
           <img src={gỉl} className='rounded-full block mx-auto w-[180px] h-[170px]' alt='' />
@@ -33,24 +34,27 @@ const Sidebar = () => {
         </div>
         <ul className='px-3 mt-6'>
           <li
-            className={`py-1 px-2 ${location === '/profile/settings' && 'bg-[#333399] text-white'
-              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
+            className={`py-1 px-2 ${
+              location === '/profile/settings' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
           >
             <Link className='w-full block' to={'/profile/settings'}>
               Hồ sơ tài khoản
             </Link>
           </li>
           <li
-            className={`py-1 px-2 ${location === '/profile/loan-demand' && 'bg-[#333399] text-white'
-              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+            className={`py-1 px-2 ${
+              location === '/profile/loan-demand' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
           >
             <Link className='w-full block' to={'/profile/loan-demand'}>
               Quản lý
             </Link>
           </li>
           <li
-            className={`py-1 px-2 ${location === '/profile/password' && 'bg-[#333399] text-white'
-              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+            className={`py-1 px-2 ${
+              location === '/profile/password' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
           >
             <Link className='w-full block' to={'/profile/password'}>
               Đổi mật khẩu
