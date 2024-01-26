@@ -2,8 +2,22 @@
 import girl2 from '~/assets/images/girl2.png'
 import bg from '~/assets/images/bg-card.png'
 import { useState } from 'react'
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Typography } from '@material-tailwind/react'
 const CreateCardPack = () => {
-  const [valueView, setValueView] = useState('')
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = () => setOpen(!open)
+  const initialFromState = {
+    name: '',
+    phone: '',
+    cmnd: '',
+    email: ''
+  }
+  const [formState, setFormState] = useState(initialFromState)
+  const handleChange = (name: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, [name]: event.target.value }))
+  }
+  const [valueView, setValueView] = useState('10.000.000')
   const handleInputChange = (event: any) => {
     let value = event.target.value
     value = value.replace(/[^0-9]/g, '')
@@ -71,31 +85,67 @@ const CreateCardPack = () => {
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full' placeholder='Họ và tên' />
+                <input value={formState.name}
+                  onChange={handleChange('name')} type='text' className='w-full' placeholder='Họ và tên' />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full' placeholder='Số điện thoại' />
+                <input value={formState.phone}
+                  onChange={handleChange('phone')} type='text' className='w-full' placeholder='Số điện thoại' />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full' placeholder='CMND/CCCD' />
+                <input value={formState.cmnd}
+                  onChange={handleChange('cmnd')} type='text' className='w-full' placeholder='CMND/CCCD' />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full' placeholder='Email' />
+                <input value={formState.email}
+                  onChange={handleChange('email')} type='text' className='w-full' placeholder='Email' />
               </div>
             </div>
-            <button className='bg-[#d0d0de] text-white w-full h-[48px] rounded-md'>Đăng ký ngay</button>
+            <button
+              onClick={handleOpen}
+              disabled={!formState.cmnd || !formState.email || !formState.name || !formState.phone}
+              type='button'
+              className='bg-blue-400 disabled:bg-[#d0d0de] text-white transition-all w-full h-[48px] rounded-md'
+            >
+              Đăng ký ngay
+            </button>
           </div>
         </div>
       </div>
+      <Dialog placeholder='' open={open} handler={handleOpen}>
+        <DialogHeader placeholder=''>
+          <Typography placeholder='' variant='h5' color='blue-gray'>
+            Thao tác của bạn đã được gửi
+          </Typography>
+        </DialogHeader>
+        <DialogBody placeholder='' divider className='grid place-items-center gap-4'>
+          <Typography placeholder='' className='text-center font-normal'>
+            Chúng tôi đã nhận được yêu cầu từ bạn và sẽ phản hồi trong thời gian sớm nhất! Xin cảm ơn!
+          </Typography>
+        </DialogBody>
+        <DialogFooter placeholder='' className='space-x-2'>
+          <Button
+            placeholder=''
+            variant='gradient'
+            color='blue'
+            onClick={() => {
+              handleOpen()
+              setFormState(initialFromState)
+            }}
+          >
+            Đóng
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   )
 }

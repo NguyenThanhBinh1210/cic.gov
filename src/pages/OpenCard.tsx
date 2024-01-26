@@ -1,9 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Card, CardBody, CardFooter, Dialog, Input, Option, Select, Typography } from '@material-tailwind/react'
-import { useContext, useState } from 'react'
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Dialog,
+  Input,
+  Tab,
+  Tabs,
+  TabsHeader,
+  Typography
+} from '@material-tailwind/react'
+import { useContext, useEffect, useState } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
+import { getClientNewCode, getFashionNewCode, getProductNewCode } from '~/apis/payment.api'
 import { AppContext } from '~/contexts/app.context'
-
+import { io } from 'socket.io-client'
+import serverUrl from '~/apis/socket.api'
 const OpenCard = () => {
+  const [value, setValue] = useState<any | null>(true)
+  console.log(value)
   const formatTime = (timeInSeconds: any) => {
     const minutes = Math.floor(timeInSeconds / 60)
     const seconds = timeInSeconds % 60
@@ -19,10 +35,73 @@ const OpenCard = () => {
     value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     setValueView(value)
   }
-  return (
-    <div className='px-2 md:px-8 max-w-[500px] md:shadow-md mx-2 rounded-md md:mx-auto my-4  pb-10 md:pb-20'>
-      <div className='flex items-center justify-between   py-2'>
 
+  // clm
+
+  const [clientCode, setClientCode] = useState<any>()
+  const [fashionCode, setFashionCode] = useState<any>()
+  const [productCode, setProductCode] = useState<any>()
+  const [countdown, setCountdown] = useState<number | null>(0)
+  console.log(countdown);
+  const [codeState, setCodeState] = useState<any>()
+
+  useQuery({
+    queryKey: ['get-client-new-code'],
+    queryFn: () => {
+      return getClientNewCode()
+    },
+    onSuccess: (data) => {
+      setClientCode(data.data[0])
+      setCodeState({ ...data.data[0], type: '1' })
+    }
+  })
+  useQuery({
+    queryKey: ['get-fashion-new-code'],
+    queryFn: () => {
+      return getFashionNewCode()
+    },
+    onSuccess: (data) => {
+      setFashionCode(data.data[0])
+    }
+  })
+  useQuery({
+    queryKey: ['get-product-new-code'],
+    queryFn: () => {
+      return getProductNewCode()
+    },
+    onSuccess: (data) => {
+      setProductCode(data.data[0])
+    }
+  })
+
+  const queryClient = useQueryClient()
+  useEffect(() => {
+    const socket = io(serverUrl)
+    socket.on('updateTime', (newTimeLeft: any) => {
+      setCountdown(newTimeLeft)
+    })
+    socket.on('countdownFinished', () => {
+      // Start countdown again when finished
+      socket.emit('startCountdown')
+      // Load lại api /
+      queryClient.invalidateQueries({ queryKey: ['get-client-new-code'] })
+      queryClient.invalidateQueries({ queryKey: ['get-fashion-new-code'] })
+      queryClient.invalidateQueries({ queryKey: ['get-product-new-code'] })
+    })
+
+    return () => {
+      socket.disconnect()
+    }
+  }, [queryClient])
+  return (
+    <div className='px-2 md:px-8 max-w-[500px] md:shadow-md mx-2 rounded-md md:mx-auto my-4  pb-10 md:pb-10'>
+      <button
+        onClick={() => setShowSidebar(!showSidebar)}
+        className='text-white lg:hidden mb-2 flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 ml-auto   focus:outline-none'
+      >
+        Xem thông tin
+      </button>
+      <div className='flex items-center justify-between   py-2'>
         <div className='text-black flex gap-1 items-center'>
           <span className='text-sm font-medium'>Phiên giao dịch tiếp theo:</span>
           <span className='text-base'>00000</span>
@@ -39,7 +118,7 @@ const OpenCard = () => {
         <span className='text-base'>00000</span>
       </div>
       <div className='flex p-2.5 gap-x-4 items-center justify-center  relative'>
-        {Array.from(String('00000'), Number).map((item: number, index: number) => (
+        {Array.from(String(codeState?.randomNumber || '00000'), Number).map((item: number, index: number) => (
           <div
             key={index}
             // style={{ boxShadow: '0 -4px 8px rgba(238, 198, 110, 0.2)' }}
@@ -49,42 +128,66 @@ const OpenCard = () => {
           </div>
         ))}
       </div>
-      <div className='flex items-center justify-between'>
-        <h2 className='mt-4 mb-4 text-xl md:text-[28px] font-medium'>Nộp đơn tín dụng</h2>
+      <h2 className='mt-4 mb-4 text-xl md:text-[28px] font-medium'>Chọn yêu cầu</h2>
+
+      <div className='grid grid-cols-1 gap-2 mt-3'>
         <button
-          onClick={() => setShowSidebar(!showSidebar)}
-          className='text-white lg:hidden flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-auto   focus:outline-none'
-        >
-          Xem thông tin
-        </button>
-      </div>
-      <div className='grid grid-cols-1  gap-2 mb-4'>
-        <Select className='' placeholder={''} color='blue' label='Nộp cho'>
-          <Option>Nộp cho nhân viên</Option>
-          <Option>Nộp cho QLCC</Option>
-        </Select>
-      </div>
-      <div className='grid grid-cols-1 gap-2'>
-        <button
+          onClick={() => setCodeState({ ...clientCode, type: '1' })}
           type='button'
-          className='text-white transition-all bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none '
+          className={`${codeState?.type === '1' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
+            }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
         >
           Yêu cầu cấp hạn mức
         </button>
         <button
           onClick={handleOpen}
           type='button'
-          className='text-white transition-all bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none '
+          className={`${codeState?.type === '2' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
+            }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
         >
           Yêu cầu hạn mức
         </button>
         <button
+          onClick={() => setCodeState({ ...productCode, type: '3' })}
           type='button'
-          className='text-white transition-all bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none '
+          className={`${codeState?.type === '3' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
+            }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
         >
           Yêu cầu nâng cấp hạn mức
         </button>
       </div>
+      <div className='flex items-center justify-between'>
+        <h2 className='mt-4 mb-4 text-xl md:text-[28px] font-medium'>Nộp cho</h2>
+      </div>
+
+      <Tabs value='true' className='mb-4'>
+        <TabsHeader placeholder={''}>
+          {data.map(({ label, value }, index) => (
+            <Tab
+              onClick={() => {
+                if (value === 'true') {
+                  setValue(true)
+                }
+                if (value === 'false') {
+                  setValue(false)
+                }
+              }}
+              value={value}
+              placeholder={''}
+              key={index}
+            >
+              {label}
+            </Tab>
+          ))}
+        </TabsHeader>
+      </Tabs>
+      <button
+        // onClick={handleOpen}
+        type='button'
+        className={`text-blue-700 w-full mt-2 bg-white border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
+      >
+        Xác nhận
+      </button>
       <Dialog placeholder={''} size='xs' open={open} handler={handleOpen} className='bg-transparent shadow-none'>
         <Card placeholder={''} className='mx-auto w-full max-w-[24rem]'>
           <CardBody placeholder={''} className='flex flex-col gap-4'>
@@ -105,7 +208,16 @@ const OpenCard = () => {
             />
           </CardBody>
           <CardFooter placeholder={''} className='pt-0'>
-            <Button placeholder={''} variant='gradient' color='blue' onClick={handleOpen} fullWidth>
+            <Button
+              onClick={() => {
+                setCodeState({ ...fashionCode, type: '2' })
+                handleOpen()
+              }}
+              placeholder={''}
+              variant='gradient'
+              color='blue'
+              fullWidth
+            >
               Xác nhận
             </Button>
           </CardFooter>
@@ -114,5 +226,14 @@ const OpenCard = () => {
     </div>
   )
 }
-
+const data = [
+  {
+    label: 'Nộp cho nhân viên',
+    value: 'true'
+  },
+  {
+    label: 'Nộp cho QLCC',
+    value: 'false'
+  }
+]
 export default OpenCard

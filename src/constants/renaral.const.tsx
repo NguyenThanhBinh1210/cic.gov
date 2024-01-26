@@ -89,10 +89,10 @@ export const menuLink = [
       // }
     ]
   },
-  {
-    title: 'Tin tức',
-    path: '/'
-  }
+  // {
+  //   title: 'Tin tức',
+  //   path: '/'
+  // }
 ]
 
 export const nhucauLink = [

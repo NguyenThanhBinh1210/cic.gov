@@ -8,6 +8,7 @@ import NotifyCMNDModal from '~/modules/modal/NotifyCMNDModal'
 
 const Settings = () => {
   const { profile, showSidebar, setShowSidebar } = useContext(AppContext)
+  console.log(profile);
   const queryClient = useQueryClient()
   const initialFromState = {
     userId: profile?._id,
@@ -15,6 +16,11 @@ const Settings = () => {
     nameUserBank: '',
     accountNumber: ''
   }
+  // const initialFromStateProfile = {
+  //   userId: profile?._id,
+  //   name: profile?.name,
+  //   username: profile?.username,
+  // }
   const [open, setOpen] = useState(false)
 
   const handleOpen = () => setOpen(!open)
@@ -70,7 +76,9 @@ const Settings = () => {
   })
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (paymentInfo?.data === null) {
+    if (!formState.nameUserBank || !formState.accountNumber || !formState.bankName) {
+      alert('Vui lòng nhập đủ trường!')
+    } else if (paymentInfo?.data === null) {
       mutationCreate.mutate(formState, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['get-payment'] })
@@ -213,9 +221,8 @@ const Settings = () => {
                   setShowList(true)
                 }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
-                paymentInfo?.data !== null && 'bg-gray-50'
-              } `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${paymentInfo?.data !== null && 'bg-gray-50'
+                } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (
