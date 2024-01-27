@@ -4,56 +4,90 @@ import cm2 from '~/assets/images/a2 (1).png'
 import cm3 from '~/assets/images/a3.png'
 import { useState } from 'react'
 import { Dialog } from '@material-tailwind/react'
+import { objectToFormData } from '~/utils/utils'
+import { useMutation } from 'react-query'
+import { updateCCCD } from '~/apis/auth.api'
 const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onCloseNoti: () => void }) => {
   const [formState, setFormState] = useState<any>({})
+
   const [image, setImage] = useState<any>(null)
   const [image2, setImage2] = useState<any>(null)
   const [image3, setImage3] = useState<any>(null)
   const [error, setError] = useState(false)
+  const mutationUpdateUser = useMutation((body: any) => {
+    return updateCCCD(body)
+  })
   const handleImageChange = (e: any) => {
     const file = e.target.files[0]
     const reader = new FileReader()
-    reader.onloadend = () => {
-      setImage(reader.result)
+    const newForm = {
+      frontImage: file
     }
-    if (file) {
-      reader.readAsDataURL(file)
-    }
+    const formData = objectToFormData(newForm)
+    mutationUpdateUser.mutate(formData, {
+      onSuccess: (data) => {
+        console.log(data)
+        alert('Thành công')
+        reader.onloadend = () => {
+          setImage(reader.result)
+        }
+        if (file) {
+          reader.readAsDataURL(file)
+        }
+      }
+    })
+
     if (formState.matsau && formState.mattruoc && formState.chandung) {
       setError(false)
     }
   }
   const handleImageChange2 = (e: any) => {
     const file = e.target.files[0]
+    const newForm = {
+      backImage: file
+    }
+    const formData = objectToFormData(newForm)
     const reader = new FileReader()
-    reader.onloadend = () => {
-      setImage2(reader.result)
-    }
-    if (file) {
-      reader.readAsDataURL(file)
-    }
+    mutationUpdateUser.mutate(formData, {
+      onSuccess: (data) => {
+        console.log(data)
+        alert('Thành công')
+        reader.onloadend = () => {
+          setImage2(reader.result)
+        }
+        if (file) {
+          reader.readAsDataURL(file)
+        }
+      }
+    })
     if (formState.matsau && formState.mattruoc && formState.chandung) {
       setError(false)
     }
   }
   const handleImageChange3 = (e: any) => {
     const file = e.target.files[0]
+    const newForm = {
+      portrait: file
+    }
+    const formData = objectToFormData(newForm)
     const reader = new FileReader()
-    reader.onloadend = () => {
-      setImage3(reader.result)
-    }
-    if (file) {
-      reader.readAsDataURL(file)
-    }
+    mutationUpdateUser.mutate(formData, {
+      onSuccess: (data) => {
+        console.log(data)
+        alert('Thành công')
+        reader.onloadend = () => {
+          setImage3(reader.result)
+        }
+        if (file) {
+          reader.readAsDataURL(file)
+        }
+      }
+    })
     if (formState.matsau && formState.mattruoc && formState.chandung) {
       setError(false)
     }
   }
-  const handleUpdate = () => {
-    if (!formState.matsau || !formState.mattruoc || !formState.chandung) {
-      setError(true)
-    }
-  }
+
   return (
     <Dialog placeholder={''} open={showNoti} handler={onCloseNoti}>
       <div className='max-h-[90vh] overflow-y-auto'>
@@ -195,8 +229,10 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
                 <input
                   onChange={(e) => {
                     handleImageChange(e)
+
                     setFormState({ ...formState, mattruoc: e.target.files && e.target.files[0] })
                   }}
+                  multiple={true}
                   id='mattruoc'
                   type='file'
                   className='absolute opacity-0 invisible'
@@ -210,6 +246,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
                 <input
                   onChange={(e) => {
                     handleImageChange2(e)
+
                     setFormState({ ...formState, matsau: e.target.files && e.target.files[0] })
                   }}
                   id='matsau'
@@ -225,7 +262,6 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
                 <input
                   onChange={(e) => {
                     handleImageChange3(e)
-
                     setFormState({ ...formState, chandung: e.target.files && e.target.files[0] })
                   }}
                   id='chandung'
@@ -241,7 +277,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
               <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-gray-500'>
                 Huỷ
               </button>
-              <button onClick={handleUpdate} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
+              <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
                 Tiếp tục
               </button>
             </div>

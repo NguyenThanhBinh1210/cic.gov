@@ -130,7 +130,7 @@ const QuanLy = () => {
                         </td>
                       </tr>
                     ))}
-                  {!totalHisOrder && (
+                  {totalHisOrder.length === 0 && (
                     <tr>
                       <td colSpan={4} className='p-2 text-[12px] md:p-[15px] text-center border-r'>
                         Không có dữ liệu
@@ -203,7 +203,7 @@ const QuanLy = () => {
                         <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>{tachDoanVan(item.nfo)}</td>
                       </tr>
                     ))}
-                  {!totalHisWL && (
+                  {totalHisWL.length === 0 && (
                     <tr>
                       <td colSpan={4} className='p-2 text-[12px] md:p-[15px] text-center border-r'>
                         Không có dữ liệu

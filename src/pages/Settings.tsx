@@ -2,13 +2,15 @@
 import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { updateUser } from '~/apis/auth.api'
 import { createPayment, getPayment } from '~/apis/payment.api'
 import { AppContext } from '~/contexts/app.context'
 import NotifyCMNDModal from '~/modules/modal/NotifyCMNDModal'
+import { setProfileFromLS } from '~/utils/auth'
 
 const Settings = () => {
-  const { profile, showSidebar, setShowSidebar } = useContext(AppContext)
-  console.log(profile)
+  const { profile, showSidebar, setShowSidebar, setProfile } = useContext(AppContext)
+
   const queryClient = useQueryClient()
   const initialFromState = {
     userId: profile?._id,
@@ -16,11 +18,19 @@ const Settings = () => {
     nameUserBank: '',
     accountNumber: ''
   }
-  // const initialFromStateProfile = {
-  //   userId: profile?._id,
-  //   name: profile?.name,
-  //   username: profile?.username,
-  // }
+  const initialFromStateProfile = {
+    userId: profile?._id,
+    name: profile?.name,
+    username: profile?.username,
+    email: profile?.email,
+    address: profile?.address,
+    gender: profile?.gender,
+    birthDate: profile?.birthDate,
+    dateRange: profile?.dateRange,
+    idNumber: profile?.idNumber,
+    city: profile?.city,
+    phoneNumber: profile?.phoneNumber
+  }
   const [open, setOpen] = useState(false)
 
   const handleOpen = () => setOpen(!open)
@@ -31,8 +41,12 @@ const Settings = () => {
     }
   })
   const [formState, setFormState] = useState(initialFromState)
+  const [formStateProfile, setFormStateProfile] = useState(initialFromStateProfile)
   const handleChange = (name: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormState((prev) => ({ ...prev, [name]: event.target.value }))
+  }
+  const handleChangeProfile = (name: any) => (event: any) => {
+    setFormStateProfile((prev) => ({ ...prev, [name]: event.target.value }))
   }
   useEffect(() => {
     if (paymentInfo?.data !== null) {
@@ -74,6 +88,9 @@ const Settings = () => {
   const mutationCreate = useMutation((body: any) => {
     return createPayment(body)
   })
+  const mutationUpdateUser = useMutation((body: any) => {
+    return updateUser(body)
+  })
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!formState.nameUserBank || !formState.accountNumber || !formState.bankName) {
@@ -90,6 +107,20 @@ const Settings = () => {
       })
     }
   }
+  const handleSubmitProfile = () => {
+    mutationUpdateUser.mutate(formStateProfile, {
+      onSuccess: (data) => {
+        setProfileFromLS(data.data.user)
+        setProfile(data.data.user)
+        alert('Cập nhật thông tin thành công!')
+      },
+      onError: (err) => {
+        console.log(err);
+        alert('Lỗi!')
+      }
+    })
+  }
+
   return (
     <div className='py-3  px-3 md:px-6'>
       <button
@@ -221,9 +252,8 @@ const Settings = () => {
                   setShowList(true)
                 }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
-                paymentInfo?.data !== null && 'bg-gray-50'
-              } `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${paymentInfo?.data !== null && 'bg-gray-50'
+                } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (
@@ -300,18 +330,17 @@ const Settings = () => {
         <h2 className='font-bold text-[#333399] border-b pb-1'>THÔNG TIN TÀI KHOẢN CỦA QUÝ KHÁCH</h2>
         <div className='grid grid-cols-1 md:grid-cols-2 md:gap-x-14  py-3'>
           <div className='flex  mb-4 items-center'>
-            <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Mã CIC</div>
-            <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Mã CIC' />
-              </div>
-            </div>
-          </div>
-          <div className='flex  mb-4 items-center'>
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Tên đăng nhập</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
-              <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Tên đăng nhập' />
+              <div className='flex-1 p-1.5 bg-gray-50'>
+                <input
+                  disabled
+                  value={formStateProfile.username}
+                  onChange={handleChangeProfile('username')}
+                  type='text'
+                  className='w-full '
+                  placeholder='Tên đăng nhập'
+                />
               </div>
             </div>
           </div>
@@ -319,7 +348,13 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Họ và tên</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Họ và tên' />
+                <input
+                  value={formStateProfile.name}
+                  onChange={handleChangeProfile('name')}
+                  type='text'
+                  className='w-full '
+                  placeholder='Họ và tên'
+                />
               </div>
             </div>
           </div>
@@ -327,7 +362,13 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Ngày sinh</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Ngày sinh' />
+                <input
+                  value={formStateProfile.birthDate}
+                  onChange={handleChangeProfile('birthDate')}
+                  type='date'
+                  className='w-full '
+                  placeholder='Ngày sinh'
+                />
               </div>
             </div>
           </div>
@@ -335,7 +376,19 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Giới tính</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Giới tính' />
+                <select
+                  value={formStateProfile.gender}
+                  onChange={handleChangeProfile('gender')}
+                  name=''
+                  id=''
+                  className='w-full'
+                >
+                  <option value='' selected disabled>
+                    Chọn giới tính
+                  </option>
+                  <option value='Nam'>Nam</option>
+                  <option value='Nữ'>Nữ</option>
+                </select>
               </div>
             </div>
           </div>
@@ -343,7 +396,13 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>CCCD/CMND</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='CCCD/CMND' />
+                <input
+                  value={formStateProfile.idNumber}
+                  onChange={handleChangeProfile('idNumber')}
+                  type='text'
+                  className='w-full '
+                  placeholder='CCCD/CMND'
+                />
               </div>
             </div>
           </div>
@@ -351,7 +410,13 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Ngày cấp</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Ngày cấp' />
+                <input
+                  value={formStateProfile.dateRange}
+                  onChange={handleChangeProfile('dateRange')}
+                  type='date'
+                  className='w-full '
+                  placeholder='Ngày cấp'
+                />
               </div>
             </div>
           </div>
@@ -359,7 +424,13 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Nơi cấp</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Nơi cấp' />
+                <input
+                  value={formStateProfile.city}
+                  onChange={handleChangeProfile('city')}
+                  type='text'
+                  className='w-full '
+                  placeholder='Nơi cấp'
+                />
               </div>
             </div>
           </div>
@@ -367,7 +438,13 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Email</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Email' />
+                <input
+                  value={formStateProfile.email}
+                  onChange={handleChangeProfile('email')}
+                  type='text'
+                  className='w-full '
+                  placeholder='Email'
+                />
               </div>
             </div>
           </div>
@@ -375,12 +452,35 @@ const Settings = () => {
             <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Số điện thoại</div>
             <div className='flex items-center flex-1 border rounded overflow-hidden'>
               <div className='flex-1 p-1.5'>
-                <input type='text' className='w-full ' placeholder='Số điện thoại' />
+                <input
+                  value={formStateProfile.phoneNumber}
+                  onChange={handleChangeProfile('phoneNumber')}
+                  type='text'
+                  className='w-full '
+                  placeholder='Số điện thoại'
+                />
+              </div>
+            </div>
+          </div>
+          <div className='flex  mb-4 items-center'>
+            <div className='w-[110px] md:w-[150px] mb-1 font-bold'>Địa chỉ</div>
+            <div className='flex items-center flex-1 border rounded overflow-hidden'>
+              <div className='flex-1 p-1.5'>
+                <input
+                  value={formStateProfile.address}
+                  onChange={handleChangeProfile('address')}
+                  type='text'
+                  className='w-full '
+                  placeholder='Địa chỉ'
+                />
               </div>
             </div>
           </div>
         </div>
-        <button className='bg-[#333399] text-white rounded px-3 py-1 text-base block mx-auto'>
+        <button
+          onClick={handleSubmitProfile}
+          className='bg-[#333399] text-white rounded px-3 py-1 text-base block mx-auto'
+        >
           Cập nhật thông tin
         </button>
       </div>

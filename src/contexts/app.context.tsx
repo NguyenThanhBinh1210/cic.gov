@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState } from 'react'
 import { Profile } from '~/types/auth.type'
@@ -6,7 +7,7 @@ import { clearLS, getAccessTokenFromLS, getProfileFromLS } from '~/utils/auth'
 interface AppContextInterface {
   isAuthenticated: boolean
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  profile: Profile | null
+  profile: any | null
   setProfile: React.Dispatch<React.SetStateAction<Profile | null>>
   showSidebar: boolean
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
