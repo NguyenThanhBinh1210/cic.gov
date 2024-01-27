@@ -5,31 +5,146 @@ import gỉl from '~/assets/images/girl1.png'
 import BaseModal from '../Modal/BaseModal'
 import { AppContext } from '~/contexts/app.context'
 import { Dialog } from '@material-tailwind/react'
+import { useMutation, useQuery } from 'react-query'
+import { getToiThieu, getWallet, postWithdrawt } from '~/apis/recharge'
+import { getPayment } from '~/apis/payment.api'
 const Sidebar = () => {
+  const { showSidebar, setShowSidebar, profile } = useContext(AppContext)
   const location = useLocation().pathname
+  const initialFromState = {
+    userId: profile?._id,
+    totalAmount: '',
+    codeOder: ''
+  }
+  const [toiThieu, setToiThieu] = useState<any>()
+  const [formState] = useState(initialFromState)
+  const [value, setValue] = useState(0)
+  const [valueView, setValueView] = useState('')
+  const handleInputChange = (event: any) => {
+    const inputValue = event.target.value
+    if (inputValue === '') {
+      setValue(0)
+    }
+    setValue(inputValue.replace(/[^0-9]/g, ''))
 
-  const { showSidebar, setShowSidebar } = useContext(AppContext)
+    let value = event.target.value
+    value = value.replace(/[^0-9]/g, '')
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    setValueView(value)
+  }
+  const [totalAmount, setTotalAmount] = useState<string | number>(0)
+
+  const mutationCreate = useMutation((body: any) => {
+    return postWithdrawt(body)
+  })
+  const handleSubmit = () => {
+    if (Number(totalAmount) >= value) {
+      const newData = {
+        ...formState,
+        totalAmount: value
+      }
+      mutationCreate.mutate(newData, {
+        onSuccess: () => {
+          alert('Yêu cầu rút tiền hoàn tất. Số thứ tự hàng đợi đến lượt rút tiền:xxxx \nVui lòng chờ!!')
+          setTotalAmount(Number(totalAmount) - Number(value))
+        },
+        onError: (error: any) => {
+          alert(error?.response.data.message)
+        }
+      })
+    } else {
+      alert('Điểm rút nhiều hơn số dư!')
+    }
+  }
+  const [banks, setTotalbanks] = useState('')
   const [open, setOpen] = useState(false)
-
   const handleOpen = () => setOpen(!open)
+  const [open2, setOpen2] = useState(false)
+  const handleOpen2 = () => setOpen2(!open2)
+  useQuery({
+    queryKey: 'get-wallets',
+    queryFn: () => getWallet(),
+    onSuccess: (data) => {
+      setTotalAmount(data.data.getWallet?.totalAmount)
+    }
+  })
+  const { data: paymentInfo } = useQuery({
+    queryKey: 'get-payment',
+    queryFn: () => getPayment({ userId: profile?._id }),
+    onSuccess: (data) => {
+      setTotalbanks(data.data.userId.isDongBang)
+      console.log(data.data)
+    }
+  })
+  useQuery({
+    queryKey: ['get-toi-thieu'],
+    queryFn: () => {
+      return getToiThieu()
+    },
+    onSuccess: (data) => {
+      setToiThieu(data.data.number)
+    }
+  })
   return (
     <>
       <BaseModal show={showSidebar} onClose={() => setShowSidebar(false)}></BaseModal>
       <div
         className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${
           location.includes('profile') || location.includes('open-card')
-            ? 'fixed top-0 left-0  h-screen z-50 lg:static'
+            ? 'fixed top-0 left-0  min-h-screen z-50 '
             : 'hidden  lg:block'
-        } w-[275px] lg:translate-x-0  bg-[#f8f8f8] h-screen transition-all`}
+        } w-[275px] lg:translate-x-0  bg-[#f8f8f8] lg:sticky top-0 min-h-screen transition-all`}
       >
         <div className='mt-10 px-3'>
           <img src={gỉl} className='rounded-full block mx-auto w-[180px] h-[170px]' alt='' />
-          <p className='font-bold mt-3 text-center'>Nguyễn Thanh Bình</p>
-          <p className='text-center mt-2'>Tài khoản chính</p>
-          <p className='text-center text-xl font-medium'>966.312.062 đ</p>
-          <div className=' text-center'>
-            <span>Đóng băng:</span> <span className='line-through font-bold text-orange-900'>100.000 đ</span>
-          </div>
+          <p className='font-bold mt-3 text-center'>{profile?.name || profile?.username}</p>
+          <p className='text-center mt-2'>Hạn mức tín dụng</p>
+          <p className='text-center text-xl font-medium'>30.000.000 đ</p>
+          <button
+            onClick={handleOpen2}
+            className='block w-max mx-auto hover:bg-blue-gray-50 p-2 rounded-full transition-all'
+          >
+            <svg
+              className='w-6 h-6 text-gray-800 dark:text-white'
+              aria-hidden='true'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 16 14'
+            >
+              <path
+                stroke='currentColor'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M11 10H1m0 0 3-3m-3 3 3 3m1-9h10m0 0-3 3m3-3-3-3'
+              />
+            </svg>
+          </button>
+          <p className='text-center mt-2'>Số tiền trong TK</p>
+          <p className='text-center text-xl font-medium'>
+            {new Intl.NumberFormat('vi-VN', {
+              style: 'currency',
+              currency: 'VND',
+              minimumFractionDigits: 0
+            }).format(totalAmount as number)}
+          </p>
+
+          {banks ? (
+            <div className=' text-center'>
+              <span>Đóng băng:</span>{' '}
+              <span className='line-through font-bold text-orange-900'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(totalAmount as number)}
+              </span>
+            </div>
+          ) : (
+            <div className=' text-center'>
+              <span>Đóng băng:</span> <span className='line-through font-bold text-orange-900'>0 đ</span>
+            </div>
+          )}
           <button
             onClick={handleOpen}
             className='bg-[#333399] block mt-2 mx-auto text-white rounded py-2 px-6 mb-4 shadow-md hover:shadow-none transition-all hover:translate-y-0.5'
@@ -98,21 +213,23 @@ const Sidebar = () => {
             <Link className='w-full block' to={'/profile/settings'}>
               Liên kết ngân hàng
             </Link>
-            <svg
-              className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
-              aria-hidden='true'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-            >
-              <path
-                stroke='currentColor'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='3'
-                d='m5 12 4.7 4.5 9.3-9'
-              />
-            </svg>{' '}
+            {paymentInfo?.data !== null && (
+              <svg
+                className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
+                aria-hidden='true'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+              >
+                <path
+                  stroke='currentColor'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='3'
+                  d='m5 12 4.7 4.5 9.3-9'
+                />
+              </svg>
+            )}
           </li>
         </ul>
       </div>
@@ -122,28 +239,118 @@ const Sidebar = () => {
           <div className='p-4 bg-white border-b'>
             <div>
               <span>Số dư hiện có:</span>
-              <span className='ml-1 font-bold'>414.434 ₫</span>
+              <span className='ml-1 font-bold'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(totalAmount as number)}
+              </span>
             </div>
             <div className='flex flex-col mb-4 mt-4'>
               <div className='w-[110px] md:w-[150px] mb-1 '>Số tiền cần rút:</div>
               <div className='flex items-center flex-1 border rounded overflow-hidden'>
                 <div className='flex-1 p-1.5'>
-                  <input type='text' className='w-[300px] ' placeholder='Nhập số tiền' />
+                  <input
+                    onChange={handleInputChange}
+                    value={valueView}
+                    type='text'
+                    className='w-[300px] '
+                    placeholder='Nhập số tiền'
+                  />
                 </div>
               </div>
             </div>
             <div>
               <span>Số tiền rút tối thiểu:</span>
-              <span className='ml-1 font-bold'>100.000 ₫</span>
+              <span className='ml-1 font-bold'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(toiThieu as number)}
+              </span>
             </div>
           </div>
           <div className='p-4 bg-white flex items-center justify-between'>
-            <button className='bg-[#333399] text-white  py-1.5 px-3 rounded-md'>Rút hết</button>
+            <button
+              onClick={() => {
+                setValue(Number(totalAmount))
+                setValueView(String(totalAmount).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
+              }}
+              className='bg-[#333399] text-white  py-1.5 px-3 rounded-md'
+            >
+              Rút hết
+            </button>
             <div className='flex items-center gap-2'>
               <button onClick={handleOpen} className='bg-gray-600 text-white  py-1.5 px-3 rounded-md'>
                 Đóng
               </button>
-              <button className='bg-[#4545d4] text-white  py-1.5 px-3 rounded-md'>Rút</button>
+              <button onClick={handleSubmit} className='bg-[#4545d4] text-white  py-1.5 px-3 rounded-md'>
+                Rút
+              </button>
+            </div>
+          </div>
+        </div>
+      </Dialog>
+      <Dialog placeholder={''} open={open2} handler={handleOpen2}>
+        <div className=' max-w-[945px] mx-auto rounded overflow-hidden'>
+          <div className='p-4 bg-[#333399] font-medium text-white text-2xl pl-6'>
+            Chuyển tiền từ tín dụng sang tài khoản
+          </div>
+          <div className='p-4 bg-white border-b'>
+            <div>
+              <span>Hạn mức hiện tại:</span>
+              <span className='ml-1 font-bold'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(totalAmount as number)}
+              </span>
+            </div>
+            <div className='flex flex-col mb-4 mt-4'>
+              <div className='w-[110px] md:w-[150px] mb-1 '>Số tiền cần chuyển:</div>
+              <div className='flex items-center flex-1 border rounded overflow-hidden'>
+                <div className='flex-1 p-1.5'>
+                  <input
+                    onChange={handleInputChange}
+                    value={valueView}
+                    type='text'
+                    className='w-[300px] '
+                    placeholder='Nhập số tiền'
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <span>Số tiền chuyển tối thiểu:</span>
+              <span className='ml-1 font-bold'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(toiThieu as number)}
+              </span>
+            </div>
+          </div>
+          <div className='p-4 bg-white flex items-center justify-between'>
+            <button
+              onClick={() => {
+                setValue(Number(totalAmount))
+                setValueView(String(totalAmount).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
+              }}
+              className='bg-[#333399] text-white  py-1.5 px-3 rounded-md'
+            >
+              Chuyển hết hết
+            </button>
+            <div className='flex items-center gap-2'>
+              <button onClick={handleOpen} className='bg-gray-600 text-white  py-1.5 px-3 rounded-md'>
+                Đóng
+              </button>
+              <button onClick={handleSubmit} className='bg-[#4545d4] text-white  py-1.5 px-3 rounded-md'>
+                Chuyển
+              </button>
             </div>
           </div>
         </div>

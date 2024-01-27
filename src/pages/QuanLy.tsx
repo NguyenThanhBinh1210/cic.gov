@@ -2,14 +2,38 @@
 import ic1 from '~/assets/images/ic1.png'
 import ic2 from '~/assets/images/ic2.png'
 import ic3 from '~/assets/images/ic3.png'
-import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react'
+import { Accordion, AccordionHeader, AccordionBody, Chip } from '@material-tailwind/react'
 import { useContext, useState } from 'react'
 import { AppContext } from '~/contexts/app.context'
+import { useQuery } from 'react-query'
+import { getHistoryOrder, getHistoryWallet, getWallet } from '~/apis/recharge'
+import { formatTime, tachDoanVan } from '~/utils/utils'
 const QuanLy = () => {
   const [open, setOpen] = useState(0)
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value)
   const { showSidebar, setShowSidebar } = useContext(AppContext)
-
+  const [totalHisOrder, setHistoryOrder] = useState<any>(0)
+  const [totalHisWL, setHistoryWL] = useState<any>(0)
+  const [totalAmount, setTotalAmount] = useState<string | number>(0)
+  useQuery({
+    queryFn: () => getHistoryOrder(),
+    onSuccess: (data) => {
+      setHistoryOrder(data.data.history)
+    }
+  })
+  useQuery({
+    queryFn: () => getHistoryWallet(),
+    onSuccess: (data) => {
+      setHistoryWL(data.data.history)
+    }
+  })
+  useQuery({
+    queryKey: 'get-order',
+    queryFn: () => getWallet(),
+    onSuccess: (data) => {
+      setTotalAmount(data.data.getWallet?.totalAmount)
+    }
+  })
   return (
     <div className='py-3 md:py-10 px-3 md:px-6'>
       <button
@@ -55,8 +79,14 @@ const QuanLy = () => {
           </AccordionHeader>
           <AccordionBody className='py-0'>
             <div className='text-xs md:text-sm bg-[#f5f5f5] py-1.5 border my-2 px-2'>
-              <span>Tổng số điểm:</span>
-              <span className='ml-1 font-medium'>414.434 ₫</span>
+              <span>Tổng số tiền:</span>
+              <span className='ml-1 font-medium'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(totalAmount as number)}
+              </span>
             </div>
             <div className='overflow-x-auto'>
               <table className='w-full border'>
@@ -77,65 +107,36 @@ const QuanLy = () => {
                   </tr>
                 </thead>
                 <tbody className=' overflow-y-auto'>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr className='border-b'>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>2201242918</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>46677</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>90.000 ₫</td>
-                    <td className='p-2 text-[12px] md:p-[15px] text-center border-r '>Đang chờ</td>
-                  </tr>
-                  <tr>
-                    <td colSpan={4} className='p-2 text-[12px] md:p-[15px] text-center border-r'>
-                      Không có dữ liệu
-                    </td>
-                  </tr>
+                  {totalHisOrder &&
+                    totalHisOrder?.map((item: any, index: number) => (
+                      <tr key={index} className='border-b'>
+                        <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>{item.codeOrder}</td>
+                        <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>{item.randomNumber}</td>
+                        <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>
+                          {new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                            minimumFractionDigits: 0
+                          }).format(item.countNum as number)}
+                        </td>
+                        <td className={`p-2 text-[12px] md:p-[15px] text-center border-r`}>
+                          {item.status === 'pending' ? (
+                            <Chip className='w-max mx-auto normal-case font-normal' color='amber' value='Đang chờ' />
+                          ) : item.status === 'done' ? (
+                            <Chip className='w-max mx-auto normal-case font-normal' color='green' value='Thắng' />
+                          ) : (
+                            <Chip className='w-max mx-auto normal-case font-normal' color='red' value='Thua' />
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  {!totalHisOrder && (
+                    <tr>
+                      <td colSpan={4} className='p-2 text-[12px] md:p-[15px] text-center border-r'>
+                        Không có dữ liệu
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -151,7 +152,80 @@ const QuanLy = () => {
           </AccordionHeader>
           <AccordionBody className='py-0'>
             <div className='text-xs md:text-sm bg-[#f5f5f5] py-1.5 border my-2 px-2'>
-              <span>Tổng số điểm:</span>
+              <span>Tổng số tiền:</span>
+              <span className='ml-1 font-medium'>414.434 ₫</span>
+            </div>
+            <div className='overflow-x-auto'>
+              <table className='w-full border'>
+                <thead>
+                  <tr className='bg-[#f5f5f5] w-max'>
+                    <th className='p-2 text-[12px] md:p-[15px] font-medium  border-r md:text-[13px] border-b'>
+                      <div className='w-max md:w-full'>Thời gian</div>
+                    </th>
+                    <th className='p-2 text-[12px] md:p-[15px] font-medium  border-r md:text-[13px] border-b'>
+                      <div className='w-max  md:w-full'>Số tiền</div>
+                    </th>
+                    <th className='p-2 text-[12px] md:p-[15px] font-medium  border-r md:text-[13px] border-b'>
+                      <div className='w-max  md:w-full'>Trạng thái</div>
+                    </th>
+                    <th className='p-2 text-[12px] md:p-[15px] font-medium  border-r md:text-[13px] border-b'>
+                      <div className='w-max  md:w-full'>Lý do</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className=' overflow-y-auto'>
+                  {totalHisWL &&
+                    totalHisWL?.map((item: any, index: number) => (
+                      <tr key={index} className='border-b'>
+                        <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>
+                          {formatTime(item.createdAt)}
+                        </td>
+                        <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>
+                          {new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                            minimumFractionDigits: 0
+                          }).format(item.countNum as number)}
+                        </td>
+                        <td className={`p-2 text-[12px] md:p-[15px] text-center border-r `}>
+                          {item.status === 'pending' ? (
+                            <Chip
+                              className='w-max mx-auto normal-case font-normal'
+                              color='amber'
+                              value='Đang xác nhận'
+                            />
+                          ) : item.status === 'done' ? (
+                            <Chip className='w-max mx-auto normal-case font-normal' color='green' value='Thành công' />
+                          ) : (
+                            <Chip className='w-max mx-auto normal-case font-normal' color='red' value='Thất bại' />
+                          )}
+                        </td>
+                        <td className='p-2 text-[12px] md:p-[15px] text-center border-r'>{tachDoanVan(item.nfo)}</td>
+                      </tr>
+                    ))}
+                  {!totalHisWL && (
+                    <tr>
+                      <td colSpan={4} className='p-2 text-[12px] md:p-[15px] text-center border-r'>
+                        Không có dữ liệu
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </AccordionBody>
+        </Accordion>
+        <Accordion placeholder={''} open={open === 3} icon={<Icon id={3} open={open} />}>
+          <AccordionHeader
+            className='font-bold normal-case text-md pt-2 text-[#333399] border-b pb-1'
+            placeholder={''}
+            onClick={() => handleOpen(3)}
+          >
+            LỊCH SỬ CHUYỂN ĐỔI
+          </AccordionHeader>
+          <AccordionBody className='py-0'>
+            <div className='text-xs md:text-sm bg-[#f5f5f5] py-1.5 border my-2 px-2'>
+              <span>Tổng số tiền:</span>
               <span className='ml-1 font-medium'>414.434 ₫</span>
             </div>
             <div className='overflow-x-auto'>

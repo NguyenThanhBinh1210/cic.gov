@@ -40,7 +40,7 @@ const Login = () => {
         <h2 className='text-[28px] leading-8 text-center max-w-[400px] mx-auto font-medium'>
           TRANG QUẢN LÝ NHU CẦU TÍN DỤNG KHÁCH HÀNG VAY
         </h2>
-        <h3 className='text-[#414069] text-lg text-center font-medium my-2'>DÀNH CHO TỔ CHỨC TÍN DỤNG</h3>
+        <h3 className='text-[#414069] text-lg text-center font-medium my-2'>DÙNG CHO KHÁCH HÀNG</h3>
         <h4 className='text-[#a1a1a1] text-[20px] text-center '>Đăng nhập</h4>
         <form action='' onSubmit={handleSubmit}>
           <div className='mb-3'>

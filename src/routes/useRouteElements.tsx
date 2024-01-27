@@ -18,6 +18,7 @@ import ProfileLayout from '~/layouts/ProfileLayout'
 import Settings from '~/pages/Settings'
 import QuanLy from '~/pages/QuanLy'
 import OpenCard from '~/pages/OpenCard'
+import XuHuong from '~/pages/XuHuong'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -76,6 +77,14 @@ const useRouteElements = () => {
           element: (
             <ProfileLayout>
               <QuanLy />
+            </ProfileLayout>
+          )
+        },
+        {
+          path: '/trending',
+          element: (
+            <ProfileLayout>
+              <XuHuong />
             </ProfileLayout>
           )
         },

@@ -5,13 +5,78 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { AppContext } from '~/contexts/app.context'
 import { Dialog } from '@material-tailwind/react'
+import { useMutation, useQuery } from 'react-query'
+import { getToiThieu, getWallet, postWithdrawt } from '~/apis/recharge'
 
 const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () => void }) => {
   const navigate = useNavigate()
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, profile } = useContext(AppContext)
   const [open, setOpen] = useState(false)
-
+  const initialFromState = {
+    userId: profile?._id,
+    totalAmount: '',
+    codeOder: ''
+  }
   const handleOpen = () => setOpen(!open)
+  const [open2, setOpen2] = useState(false)
+  const handleOpen2 = () => setOpen2(!open2)
+  const [totalAmount, setTotalAmount] = useState<string | number>(0)
+  useQuery({
+    queryKey: 'get-wallets',
+    queryFn: () => getWallet(),
+    onSuccess: (data) => {
+      setTotalAmount(data.data.getWallet?.totalAmount)
+    }
+  })
+  const [value, setValue] = useState(0)
+  const [valueView, setValueView] = useState('')
+  const handleInputChange = (event: any) => {
+    const inputValue = event.target.value
+    if (inputValue === '') {
+      setValue(0)
+    }
+    setValue(inputValue.replace(/[^0-9]/g, ''))
+
+    let value = event.target.value
+    value = value.replace(/[^0-9]/g, '')
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    setValueView(value)
+  }
+  const [formState] = useState(initialFromState)
+
+  const mutationCreate = useMutation((body: any) => {
+    return postWithdrawt(body)
+  })
+  const handleSubmit = () => {
+    if (Number(totalAmount) >= value) {
+      const newData = {
+        ...formState,
+        totalAmount: value
+      }
+      mutationCreate.mutate(newData, {
+        onSuccess: () => {
+          alert('Yêu cầu rút tiền hoàn tất. Số thứ tự hàng đợi đến lượt rút tiền:xxxx \nVui lòng chờ!!')
+          setTotalAmount(Number(totalAmount) - Number(value))
+        },
+        onError: (error: any) => {
+          alert(error?.response.data.message)
+        }
+      })
+    } else {
+      alert('Điểm rút nhiều hơn số dư!')
+    }
+  }
+  const [toiThieu, setToiThieu] = useState<any>()
+
+  useQuery({
+    queryKey: ['get-toi-thieu'],
+    queryFn: () => {
+      return getToiThieu()
+    },
+    onSuccess: (data) => {
+      setToiThieu(data.data.number)
+    }
+  })
   return (
     <>
       <BaseModal show={showMenu} onClose={onCloseMenu} />
@@ -80,7 +145,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
             </div>
             <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
               <div className='w-full h-full px-8 flex gap-x-1 items-center'>
-                <Link to={'/profile/loan-demand'}>Quản lý</Link>
+                <Link to={'/profile/loan-demand'}>Quản lý tài khoản</Link>
               </div>
             </div>
             <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
@@ -121,6 +186,13 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
                     d='m5 12 4.7 4.5 9.3-9'
                   />
                 </svg>{' '}
+              </div>
+            </div>
+            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <button className='block w-full text-left uppercase' onClick={handleOpen2}>
+                  Rút tiền{' '}
+                </button>
               </div>
             </div>
           </>
@@ -172,6 +244,66 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
             <button onClick={handleOpen} className='bg-red-600 text-white block mx-auto py-1.5 px-3 rounded-md'>
               Đóng
             </button>
+          </div>
+        </div>
+      </Dialog>
+      <Dialog placeholder={''} open={open2} handler={handleOpen2}>
+        <div className=' max-w-[945px] mx-auto rounded overflow-hidden'>
+          <div className='p-4 bg-[#333399] font-medium text-white text-2xl pl-6'>Rút tiền</div>
+          <div className='p-4 bg-white border-b'>
+            <div>
+              <span>Số dư hiện có:</span>
+              <span className='ml-1 font-bold'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(totalAmount as number)}
+              </span>
+            </div>
+            <div className='flex flex-col mb-4 mt-4'>
+              <div className='w-[110px] md:w-[150px] mb-1 '>Số tiền cần rút:</div>
+              <div className='flex items-center flex-1 border rounded overflow-hidden'>
+                <div className='flex-1 p-1.5'>
+                  <input
+                    onChange={handleInputChange}
+                    value={valueView}
+                    type='text'
+                    className='w-[300px] '
+                    placeholder='Nhập số tiền'
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <span>Số tiền rút tối thiểu:</span>
+              <span className='ml-1 font-bold'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                  minimumFractionDigits: 0
+                }).format(toiThieu as number)}
+              </span>
+            </div>
+          </div>
+          <div className='p-4 bg-white flex items-center justify-between'>
+            <button
+              onClick={() => {
+                setValue(Number(totalAmount))
+                setValueView(String(totalAmount).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
+              }}
+              className='bg-[#333399] text-white  py-1.5 px-3 rounded-md'
+            >
+              Rút hết
+            </button>
+            <div className='flex items-center gap-2'>
+              <button onClick={handleOpen} className='bg-gray-600 text-white  py-1.5 px-3 rounded-md'>
+                Đóng
+              </button>
+              <button onClick={handleSubmit} className='bg-[#4545d4] text-white  py-1.5 px-3 rounded-md'>
+                Rút
+              </button>
+            </div>
           </div>
         </div>
       </Dialog>

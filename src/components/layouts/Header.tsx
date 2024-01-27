@@ -45,20 +45,20 @@ const Header = () => {
                     <button className='border border-white px-1.5 font-medium rounded text-blue-800'>
                       {profile?.username}
                     </button>
-                    <ul className='bg-white group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all py-1 text-blue-800 text-base rounded absolute top-full right-0 w-max h-max'>
-                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
+                    <ul className='bg-white border group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all py-1 text-blue-800 text-base rounded absolute top-full right-0 w-max h-max'>
+                      <li className='w-[150px] border-b hover:bg-gray-50 pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
                         <Link className='w-full block' to={'/profile/loan-demand'}>
                           Hồ sơ
                         </Link>
                       </li>
-                      <li className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
+                      <li className='w-[150px] border-b hover:bg-gray-50 pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'>
                         <Link className='w-full block' to={'/profile/password'}>
                           Đổi mật khẩu
                         </Link>
                       </li>
                       <li
                         onClick={handleLogout}
-                        className='w-[150px] pl-5 py-1 hover:bg-slate-100 cursor-pointer transition-all'
+                        className='w-[150px] pl-5 py-1 hover:bg-gray-50 cursor-pointer transition-all'
                       >
                         Đăng xuất
                       </li>

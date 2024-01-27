@@ -85,29 +85,49 @@ const CreateCardPack = () => {
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input value={formState.name}
-                  onChange={handleChange('name')} type='text' className='w-full' placeholder='Họ và tên' />
+                <input
+                  value={formState.name}
+                  onChange={handleChange('name')}
+                  type='text'
+                  className='w-full'
+                  placeholder='Họ và tên'
+                />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input value={formState.phone}
-                  onChange={handleChange('phone')} type='text' className='w-full' placeholder='Số điện thoại' />
+                <input
+                  value={formState.phone}
+                  onChange={handleChange('phone')}
+                  type='text'
+                  className='w-full'
+                  placeholder='Số điện thoại'
+                />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input value={formState.cmnd}
-                  onChange={handleChange('cmnd')} type='text' className='w-full' placeholder='CMND/CCCD' />
+                <input
+                  value={formState.cmnd}
+                  onChange={handleChange('cmnd')}
+                  type='text'
+                  className='w-full'
+                  placeholder='CMND/CCCD'
+                />
               </div>
             </div>
             <div className='flex md:w-[215px] items-center border rounded overflow-hidden w-full'>
               <div className=' '></div>
               <div className='flex-1 p-1.5'>
-                <input value={formState.email}
-                  onChange={handleChange('email')} type='text' className='w-full' placeholder='Email' />
+                <input
+                  value={formState.email}
+                  onChange={handleChange('email')}
+                  type='text'
+                  className='w-full'
+                  placeholder='Email'
+                />
               </div>
             </div>
             <button

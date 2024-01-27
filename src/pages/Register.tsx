@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import RegisterMultiple from '~/modules/register/RegisterMultiple'
 import RegisterSingle from '~/modules/register/RegisterSingle'
 
@@ -18,12 +17,6 @@ const Register = () => {
           >
             <path d='M9.092 18h-4a1 1 0 0 0 0 2h4a1 1 0 0 0 0-2Zm-2-18a7.009 7.009 0 0 0-7 7 7.8 7.8 0 0 0 2.219 5.123c.956 1.195 1.781 2.228 1.781 3.877a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1c0-1.7.822-2.7 1.774-3.868A7.63 7.63 0 0 0 14.092 7a7.009 7.009 0 0 0-7-7Zm0 5a2 2 0 0 0-2 2 1 1 0 0 1-2 0 4 4 0 0 1 4-4 1 1 0 0 1 0 2Z' />
           </svg>
-          <span className='text-[#dc3545]'>
-            Đây là trang đăng ký dành cho Khách hàng vay, cán bộ tín dụng vui lòng đăng ký tài khoản
-          </span>
-          <Link to={'/'} className='underline text-blue-400'>
-            Tại đây
-          </Link>
         </div>
         <div style={{ boxShadow: '0 0 4px #bfbebe' }} className='rounded-md mb-4 py-4 px-8 bg-white '>
           <h2 className='text-[#339] text-2xl'>Đăng ký tài khoản cá nhân</h2>

@@ -8,7 +8,7 @@ import NotifyCMNDModal from '~/modules/modal/NotifyCMNDModal'
 
 const Settings = () => {
   const { profile, showSidebar, setShowSidebar } = useContext(AppContext)
-  console.log(profile);
+  console.log(profile)
   const queryClient = useQueryClient()
   const initialFromState = {
     userId: profile?._id,
@@ -221,8 +221,9 @@ const Settings = () => {
                   setShowList(true)
                 }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${paymentInfo?.data !== null && 'bg-gray-50'
-                } `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
+                paymentInfo?.data !== null && 'bg-gray-50'
+              } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (

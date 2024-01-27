@@ -43,13 +43,18 @@ export const menuLink = [
         path: '/open-card'
       },
       {
+        title: 'Xu hướng',
+        path: '/trending'
+      },
+      {
         title: 'Lịch sử tín dụng',
         path: '/profile/loan-demand'
       }
     ]
   },
   {
-    title: 'Giới thiệu'
+    title: 'Thông tin cá nhân',
+    path: '/profile/settings'
   },
   {
     title: 'ĐĂNG KÝ VAY THEO GÓI CỦA TCTD',
@@ -88,7 +93,7 @@ export const menuLink = [
       //   path: '/'
       // }
     ]
-  },
+  }
   // {
   //   title: 'Tin tức',
   //   path: '/'
