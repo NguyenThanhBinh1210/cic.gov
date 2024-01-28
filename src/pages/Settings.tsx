@@ -115,7 +115,7 @@ const Settings = () => {
         alert('Cập nhật thông tin thành công!')
       },
       onError: (err) => {
-        console.log(err);
+        console.log(err)
         alert('Lỗi!')
       }
     })
@@ -252,8 +252,9 @@ const Settings = () => {
                   setShowList(true)
                 }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${paymentInfo?.data !== null && 'bg-gray-50'
-                } `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
+                paymentInfo?.data !== null && 'bg-gray-50'
+              } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (

@@ -10,3 +10,7 @@ export const getProductNewCode = () => http.get(`/v1/code-random/get-product-new
 export const getClientCode = () => http.get(`/v1/code-random/get-client-code`)
 export const getFashionCode = () => http.get(`/v1/code-random/get-fashion-code`)
 export const getProductCode = () => http.get(`/v1/code-random/get-product-code`)
+
+// export const getHanMuc = () => http.get(`/v1/config-transition/get-config-point`)
+export const createChuyenTien = (body: any) => http.post(`/v1/wallet/change-points`, body)
+export const getChuyenTien = () => http.get(`/v1/wallet/get-change-points`)

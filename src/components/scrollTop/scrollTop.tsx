@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const ScrollToTop = () => {
-  const [showButton, setShowButton] = useState<boolean>(false)
+  // const [showButton, setShowButton] = useState<boolean>(false)
   const { pathname } = useLocation()
-  console.log(showButton)
 
   const handleScroll = () => {
     if (window.scrollY > 300) {
-      setShowButton(true)
+      // setShowButton(true)
     } else {
-      setShowButton(false)
+      // setShowButton(false)
     }
   }
   useEffect(() => {

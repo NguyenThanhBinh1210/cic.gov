@@ -25,7 +25,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
     queryKey: 'get-wallets',
     queryFn: () => getWallet(),
     onSuccess: (data) => {
-      setTotalAmount(data.data.getWallet?.totalAmount)
+      setTotalAmount(data.data.getWallet?.money)
     }
   })
   const [value, setValue] = useState(0)
@@ -99,7 +99,7 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
                   handleOpen()
                 }
               }}
-              className={`w-full h-full px-8 flex gap-x-1 items-center ${item.title === 'Menu' && 'px-20'}`}
+              className={`w-full h-full px-8 flex gap-x-1 items-center ${item.title === 'Menu' && 'lg:!px-20'}`}
             >
               {item.title}{' '}
               {item.children && (
