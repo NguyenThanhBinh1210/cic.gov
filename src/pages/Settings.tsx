@@ -138,7 +138,7 @@ const Settings = () => {
           <div className='flex gap-2 items-center flex-col md:flex-row'>
             {formStateProfile.frontImage ? (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-8' src={`https://api-vay.onrender.com/${formStateProfile.frontImage}`} />
+                <img className='w-full' src={`https://api-vay.onrender.com/${formStateProfile.frontImage}`} />
               </div>
             ) : (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
@@ -173,7 +173,7 @@ const Settings = () => {
             )}
             {formStateProfile.backImage ? (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-8' src={`https://api-vay.onrender.com/${formStateProfile.backImage}`} />
+                <img className='w-full' src={`https://api-vay.onrender.com/${formStateProfile.backImage}`} />
               </div>
             ) : (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
@@ -208,7 +208,7 @@ const Settings = () => {
             )}
             {formStateProfile.portrait ? (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-8' src={`https://api-vay.onrender.com/${formStateProfile.portrait}`} />
+                <img className='w-full' src={`https://api-vay.onrender.com/${formStateProfile.portrait}`} />
               </div>
             ) : (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
