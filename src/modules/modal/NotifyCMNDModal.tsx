@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { Dialog } from '@material-tailwind/react'
 import { objectToFormData } from '~/utils/utils'
 import { useMutation } from 'react-query'
-import { updateCCCD } from '~/apis/auth.api'
+import { updateCCCDMT, updateCCCDMS, updateCCCDCD } from '~/apis/auth.api'
 const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onCloseNoti: () => void }) => {
   const [formState, setFormState] = useState<any>({})
   const [imageList, setImageList] = useState<any>([])
@@ -15,7 +15,13 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
   const [image3, setImage3] = useState<any>(null)
   const [error, setError] = useState(false)
   const mutationUpdateUser = useMutation((body: any) => {
-    return updateCCCD(body)
+    return updateCCCDMT(body)
+  })
+  const mutationUpdateUser2 = useMutation((body: any) => {
+    return updateCCCDMS(body)
+  })
+  const mutationUpdateUser3 = useMutation((body: any) => {
+    return updateCCCDCD(body)
   })
   const handleImageChange = (e: any) => {
     const file = e.target.files[0]
@@ -25,14 +31,14 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
     }
     console.log(newData)
     setImageList([...imageList, file])
-    // mutationUpdateUser.mutate(objectToFormData(newData), {
-    //   onSuccess: () => {
-    //     console.log('oke');
-    //   },
-    //   onError: () => {
-    //     console.log('no oke');
-    //   }
-    // })
+    mutationUpdateUser.mutate(objectToFormData(newData), {
+      onSuccess: () => {
+        console.log('oke');
+      },
+      onError: () => {
+        console.log('no oke');
+      }
+    })
     reader.onloadend = () => {
       setImage(reader.result)
     }
@@ -50,6 +56,14 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
     const newData = {
       backImage: file
     }
+    mutationUpdateUser2.mutate(objectToFormData(newData), {
+      onSuccess: () => {
+        console.log('oke');
+      },
+      onError: () => {
+        console.log('no oke');
+      }
+    })
     console.log(newData)
     reader.onloadend = () => {
       setImage2(reader.result)
@@ -65,7 +79,17 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
     const file = e.target.files[0]
     const reader = new FileReader()
     setImageList([...imageList, file])
-
+    const newData = {
+      backImage: file
+    }
+    mutationUpdateUser3.mutate(objectToFormData(newData), {
+      onSuccess: () => {
+        console.log('oke');
+      },
+      onError: () => {
+        console.log('no oke');
+      }
+    })
     reader.onloadend = () => {
       setImage3(reader.result)
     }
