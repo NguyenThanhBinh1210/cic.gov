@@ -9,7 +9,7 @@ import { useMutation } from 'react-query'
 import { updateCCCD } from '~/apis/auth.api'
 const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onCloseNoti: () => void }) => {
   const [formState, setFormState] = useState<any>({})
-
+  const [imageList, setImageList] = useState<any>([])
   const [image, setImage] = useState<any>(null)
   const [image2, setImage2] = useState<any>(null)
   const [image3, setImage3] = useState<any>(null)
@@ -20,74 +20,80 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
   const handleImageChange = (e: any) => {
     const file = e.target.files[0]
     const reader = new FileReader()
-    const newForm = {
+    const newData = {
       frontImage: file
     }
-    const formData = objectToFormData(newForm)
-    mutationUpdateUser.mutate(formData, {
-      onSuccess: (data) => {
-        console.log(data)
-        alert('Thành công')
-        reader.onloadend = () => {
-          setImage(reader.result)
-        }
-        if (file) {
-          reader.readAsDataURL(file)
-        }
-      }
-    })
-
-    if (formState.matsau && formState.mattruoc && formState.chandung) {
+    console.log(newData)
+    setImageList([...imageList, file])
+    // mutationUpdateUser.mutate(objectToFormData(newData), {
+    //   onSuccess: () => {
+    //     console.log('oke');
+    //   },
+    //   onError: () => {
+    //     console.log('no oke');
+    //   }
+    // })
+    reader.onloadend = () => {
+      setImage(reader.result)
+    }
+    if (file) {
+      reader.readAsDataURL(file)
+    }
+    if (imageList.length >= 3) {
       setError(false)
     }
   }
   const handleImageChange2 = (e: any) => {
     const file = e.target.files[0]
-    const newForm = {
+    const reader = new FileReader()
+    setImageList([...imageList, file])
+    const newData = {
       backImage: file
     }
-    const formData = objectToFormData(newForm)
-    const reader = new FileReader()
-    mutationUpdateUser.mutate(formData, {
-      onSuccess: (data) => {
-        console.log(data)
-        alert('Thành công')
-        reader.onloadend = () => {
-          setImage2(reader.result)
-        }
-        if (file) {
-          reader.readAsDataURL(file)
-        }
-      }
-    })
-    if (formState.matsau && formState.mattruoc && formState.chandung) {
+    console.log(newData)
+    reader.onloadend = () => {
+      setImage2(reader.result)
+    }
+    if (file) {
+      reader.readAsDataURL(file)
+    }
+    if (imageList.length >= 3) {
       setError(false)
     }
   }
   const handleImageChange3 = (e: any) => {
     const file = e.target.files[0]
-    const newForm = {
-      portrait: file
-    }
-    const formData = objectToFormData(newForm)
     const reader = new FileReader()
-    mutationUpdateUser.mutate(formData, {
-      onSuccess: (data) => {
-        console.log(data)
-        alert('Thành công')
-        reader.onloadend = () => {
-          setImage3(reader.result)
-        }
-        if (file) {
-          reader.readAsDataURL(file)
-        }
-      }
-    })
-    if (formState.matsau && formState.mattruoc && formState.chandung) {
+    setImageList([...imageList, file])
+
+    reader.onloadend = () => {
+      setImage3(reader.result)
+    }
+    if (file) {
+      reader.readAsDataURL(file)
+    }
+    if (imageList.length >= 3) {
       setError(false)
     }
   }
-
+  const handleUpdate = () => {
+    if (imageList.length < 3) {
+      setError(true)
+    } else {
+      const newForm = {
+        avatar: imageList
+      }
+      const newdata = objectToFormData(newForm)
+      mutationUpdateUser.mutate(newdata, {
+        onSuccess: () => {
+          console.log('oke')
+        },
+        onError: () => {
+          console.log('no oke')
+        }
+      })
+    }
+  }
   return (
     <Dialog placeholder={''} open={showNoti} handler={onCloseNoti}>
       <div className='max-h-[90vh] overflow-y-auto'>
@@ -277,7 +283,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
               <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-gray-500'>
                 Huỷ
               </button>
-              <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
+              <button onClick={handleUpdate} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
                 Tiếp tục
               </button>
             </div>

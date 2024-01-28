@@ -30,7 +30,6 @@ const QuanLy = () => {
     queryFn: () => getHistoryWallet(),
     onSuccess: (data) => {
       setHistoryWL(data.data)
-      console.log(data.data)
     }
   })
   useQuery({
@@ -62,22 +61,22 @@ const QuanLy = () => {
           <div className='bg-[#82ac40] flex items-center md:h-[150px] justify-between px-[25px] py-2.5'>
             <img className='w-[50px] h-[50px]' src={ic1} alt='ic1' />
             <div>
-              <p className='text-right text-white'>TỔNG SỐ LẦN GỬI NHU CẦU</p>
-              <p className='text-3xl font-bold text-white text-right'>1</p>
+              <p className='text-right text-white'>TỔNG SỐ LẦN ĐẶT CƯỢC</p>
+              <p className='text-3xl font-bold text-white text-right'>{totalHisOrder?.length}</p>
             </div>
           </div>
           <div className='bg-[#e75d5b] flex items-center md:h-[150px] justify-between px-[25px] py-2.5'>
             <img className='w-[50px] h-[50px]' src={ic2} alt='ic2' />
             <div>
-              <p className='text-right text-white'>NHU CẦU CBTD ĐÃ KẾT NỐI</p>
-              <p className='text-3xl font-bold text-white text-right'>0</p>
+              <p className='text-right text-white'>TỔNG SỐ LẦN RÚT TIỀN</p>
+              <p className='text-3xl font-bold text-white text-right'>{totalHisWL?.length}</p>
             </div>
           </div>
           <div className='bg-[#55a67d] flex items-center md:h-[150px] justify-between px-[25px] py-2.5'>
             <img className='w-[50px] h-[50px]' src={ic3} alt='ic3' />
             <div>
-              <p className='text-right text-white'>NHU CẦU CHỜ CBTD KẾT NỐI</p>
-              <p className='text-3xl font-bold text-white text-right'>0</p>
+              <p className='text-right text-white'>TỔNG SỐ LẦN CHUYỂN ĐỔI</p>
+              <p className='text-3xl font-bold text-white text-right'>{totalHisTranf?.length}</p>
             </div>
           </div>
         </div>
