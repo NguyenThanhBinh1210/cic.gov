@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useState } from 'react'
 import { useMutation } from 'react-query'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { loginAccount } from '~/apis/auth.api'
 import { AppContext } from '~/contexts/app.context'
 
@@ -94,9 +94,9 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <Link to='/' className='text-[#007bff] text-right block hover:text-[#0051ff]'>
+          {/* <Link to='/' className='text-[#007bff] text-right block hover:text-[#0051ff]'>
             Quý khách quên mật khẩu ?
-          </Link>
+          </Link> */}
           <button
             type='submit'
             className='block bg-[#007bff] text-white transition-all text-base w-full py-2 rounded-md mt-3 mb-3 hover:bg-[#0956fb]'

@@ -203,11 +203,11 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
                 <Link to={'/login'}>Đăng nhập</Link>
               </div>
             </div>
-            <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+            {/* <div className='lg:hidden text-blue19 border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
               <div className='w-full h-full px-8 flex gap-x-1 items-center'>
                 <Link to={'/register'}>Đăng ký</Link>
               </div>
-            </div>
+            </div> */}
           </>
         )}
 

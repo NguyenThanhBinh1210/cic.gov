@@ -135,7 +135,7 @@ const Sidebar = () => {
           } w-[275px] lg:translate-x-0  bg-[#f8f8f8] lg:sticky top-0 min-h-screen transition-all`}
       >
         <div className='mt-10 px-3'>
-          <img src={gỉl} className='rounded-full block mx-auto w-[180px] h-[170px]' alt='' />
+          <img src={gỉl} className='rounded-full block mx-auto w-[75px] h-[80px]' alt='' />
           <p className='font-bold mt-3 text-center'>
             {profile?.name || profile?.username} <span className='text-gray-500'> Lv{profile?.level}</span>
           </p>
@@ -231,9 +231,9 @@ const Sidebar = () => {
               Đổi mật khẩu
             </Link>
           </li>
-        </ul>
+        {/* </ul> */}
 
-        <ul className='px-3 mt-6 '>
+        {/* <ul className='px-3 mt-6 '> */}
           <li
             className={`py-1 px-2 
              flex items-center justify-between border-t cursor-pointer transition-all border-b`}

@@ -29,12 +29,12 @@ const Header = () => {
               <div className='flex gap-3 mb-3'>
                 {!isAuthenticated && (
                   <>
-                    <button className='border border-white px-1.5 font-medium rounded text-red-500'>
+                    {/* <button className='border border-white px-1.5 font-medium rounded text-red-500'>
                       Dành cho tổ chức tín dụng
-                    </button>
-                    <Link to={'/register'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
+                    </button> */}
+                    {/* <Link to={'/register'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
                       Đăng ký
-                    </Link>
+                    </Link> */}
                     <Link to={'/login'} className='border border-white px-1.5 font-medium rounded text-blue-500'>
                       Đăng nhập
                     </Link>

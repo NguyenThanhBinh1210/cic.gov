@@ -80,7 +80,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
     const reader = new FileReader()
     setImageList([...imageList, file])
     const newData = {
-      backImage: file
+      portrait: file
     }
     mutationUpdateUser3.mutate(objectToFormData(newData), {
       onSuccess: () => {
