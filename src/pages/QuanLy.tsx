@@ -61,7 +61,7 @@ const QuanLy = () => {
           <div className='bg-[#82ac40] flex items-center md:h-[150px] justify-between px-[25px] py-2.5'>
             <img className='w-[50px] h-[50px]' src={ic1} alt='ic1' />
             <div>
-              <p className='text-right text-white'>TỔNG SỐ LẦN ĐẶT CƯỢC</p>
+              <p className='text-right text-white'>TỔNG SỐ LẦN NỘP YÊU CẦU</p>
               <p className='text-3xl font-bold text-white text-right'>{totalHisOrder?.length}</p>
             </div>
           </div>
@@ -112,7 +112,7 @@ const QuanLy = () => {
                       <div className='w-max  md:w-full'>Mã hàng</div>
                     </th>
                     <th className='p-2 text-[12px] md:p-[15px] font-medium  border-r md:text-[13px] border-b'>
-                      <div className='w-max  md:w-full'>Tổng cược</div>
+                      <div className='w-max  md:w-full'>Số tiền phí</div>
                     </th>
                     <th className='p-2 text-[12px] md:p-[15px] font-medium  border-r md:text-[13px] border-b'>
                       <div className='w-max  md:w-full'>Trạng thái</div>
@@ -136,9 +136,9 @@ const QuanLy = () => {
                           {item.status === 'pending' ? (
                             <Chip className='w-max mx-auto normal-case font-normal' color='amber' value='Đang chờ' />
                           ) : item.status === 'done' ? (
-                            <Chip className='w-max mx-auto normal-case font-normal' color='green' value='Thắng' />
+                            <Chip className='w-max mx-auto normal-case font-normal' color='green' value='Hoàn thành' />
                           ) : (
-                            <Chip className='w-max mx-auto normal-case font-normal' color='red' value='Thua' />
+                            <Chip className='w-max mx-auto normal-case font-normal' color='red' value='Huỷ' />
                           )}
                         </td>
                       </tr>
