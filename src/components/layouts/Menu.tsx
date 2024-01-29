@@ -10,12 +10,15 @@ import { getToiThieu, getWallet, postWithdrawt } from '~/apis/recharge'
 
 const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () => void }) => {
   const navigate = useNavigate()
-  const { isAuthenticated, profile } = useContext(AppContext)
+  const { isAuthenticated, profile, reset } = useContext(AppContext)
   const [open, setOpen] = useState(false)
   const initialFromState = {
     userId: profile?._id,
     totalAmount: '',
     codeOder: ''
+  }
+  const handleLogout = () => {
+    reset()
   }
   const handleOpen = () => setOpen(!open)
   const [open2, setOpen2] = useState(false)
@@ -195,6 +198,13 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
                 </button>
               </div>
             </div>
+            <div className='lg:hidden border-x-0 w-full lg:w-max relative group cursor-pointer hover:text-white hover:bg-blue19  hover:border-white transition-all duration-300 font-medium py-0.5  uppercase text-[15px] bg-white border-y md:border-x border-gray-500'>
+              <div className='w-full h-full px-8 flex gap-x-1 items-center'>
+                <button style={{ color: 'red' }} className='block w-full text-left uppercase' onClick={handleLogout}>
+                  Đăng xuất{' '}
+                </button>
+              </div>
+            </div>
           </>
         ) : (
           <>
@@ -297,9 +307,9 @@ const Menu = ({ showMenu, onCloseMenu }: { showMenu: boolean; onCloseMenu: () =>
               Rút hết
             </button>
             <div className='flex items-center gap-2'>
-              <button onClick={handleOpen} className='bg-gray-600 text-white  py-1.5 px-3 rounded-md'>
+              {/* <button onClick={handleOpen} className='bg-gray-600 text-white  py-1.5 px-3 rounded-md'>
                 Đóng
-              </button>
+              </button> */}
               <button onClick={handleSubmit} className='bg-[#4545d4] text-white  py-1.5 px-3 rounded-md'>
                 Rút
               </button>
