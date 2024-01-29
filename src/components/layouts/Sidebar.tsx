@@ -48,7 +48,8 @@ const Sidebar = () => {
   }
   const [totalAmount, setTotalAmount] = useState<string | number>(0)
   const [money, setMoney] = useState<string | number>(0)
-
+  const [freeze, setFreeze] = useState<string | number>(0)
+console.log("freeze", freeze)
   const mutationCreate = useMutation((body: any) => {
     return postWithdrawt(body)
   })
@@ -107,8 +108,10 @@ const Sidebar = () => {
     onSuccess: (data) => {
       setTotalAmount(data.data.getWallet?.totalAmount)
       setMoney(data.data.getWallet?.money)
+      setFreeze(data.data.getWallet?.totalFreeze)
     }
   })
+
   const { data: paymentInfo } = useQuery({
     queryKey: 'get-payment',
     queryFn: () => getPayment({ userId: profile?._id }),
@@ -185,13 +188,13 @@ const Sidebar = () => {
           <div className=' text-center'>
             <span>Đóng băng:</span>{' '}
             <span className='line-through font-bold text-orange-900'>
-              {banks ? (
+              {freeze !== 0 ? (
                 <>
                   {new Intl.NumberFormat('vi-VN', {
                     style: 'currency',
                     currency: 'VND',
                     minimumFractionDigits: 0
-                  }).format(money as number)}
+                  }).format(freeze as number)}
                 </>
               ) : (
                 '0 đ'
