@@ -137,8 +137,8 @@ const Settings = () => {
         <div className='flex md:items-center col-span-3 flex-col md:flex-row mt-3'>
           <div className='flex gap-2 items-center flex-col md:flex-row'>
             {formStateProfile.frontImage ? (
-              <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-full' src={formStateProfile.frontImage} />
+              <div className='bg-[#f2f0f0] border w-[80%] md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
+                <img className='w-[80%]' src={formStateProfile.frontImage} />
               </div>
             ) : (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
@@ -172,8 +172,8 @@ const Settings = () => {
               </div>
             )}
             {formStateProfile.backImage ? (
-              <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-full' src={formStateProfile.backImage} />
+              <div className='bg-[#f2f0f0] border w-[80%] md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
+                <img className='w-[80%]' src={formStateProfile.backImage} />
               </div>
             ) : (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
@@ -207,8 +207,8 @@ const Settings = () => {
               </div>
             )}
             {formStateProfile.portrait ? (
-              <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-full' src={formStateProfile.portrait} />
+              <div className='bg-[#f2f0f0] border w-[80%] md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
+                <img className='w-[80%]' src={formStateProfile.portrait} />
               </div>
             ) : (
               <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
