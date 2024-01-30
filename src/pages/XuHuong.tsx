@@ -22,7 +22,6 @@ const XuHuong = () => {
   ]
   const [filData, setFilData] = useState<any>(data)
   const [clientCode, setClientCode] = useState<any>()
-  console.log(clientCode)
   const [fashionCode, setFashionCode] = useState<any>()
   const [productCode, setProductCode] = useState<any>()
   useEffect(() => {

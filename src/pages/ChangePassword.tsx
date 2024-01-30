@@ -29,7 +29,6 @@ const ChangePassword = () => {
     if (formState.newPassword !== formState.confirmPassword) {
       alert('Nhập lại không khớp!')
     } else {
-      console.log(newData)
       mutationPassword.mutate(newData, {
         onSuccess: () => {
           alert('Đổi mật khẩu thành công!')

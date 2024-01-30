@@ -117,8 +117,7 @@ const Settings = () => {
         setProfile(data.data.user)
         alert('Cập nhật thông tin thành công!')
       },
-      onError: (err) => {
-        console.log(err)
+      onError: () => {
         alert('Lỗi!')
       }
     })
@@ -136,128 +135,131 @@ const Settings = () => {
         <h2 className='font-bold text-[#333399] border-b pb-1'>Xác minh CCCD/CMND</h2>
         <div className='flex md:items-center col-span-3 flex-col md:flex-row mt-3'>
           <div className='flex gap-2 items-center flex-col md:flex-row'>
-            {formStateProfile.frontImage ? (
-              <div className='bg-[#f2f0f0] border w-[80%] md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-[80%]' src={formStateProfile.frontImage} />
-              </div>
-            ) : (
-              <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <svg
-                  className='w-8 h-8 text-[#999] mb-1'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 20 18'
-                >
-                  <path
-                    fill='currentColor'
-                    d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
-                  />
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z'
-                  />
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
-                  />
-                </svg>
-                <p className='text-[#999]'>Mặt trước</p>
-              </div>
-            )}
-            {formStateProfile.backImage ? (
-              <div className='bg-[#f2f0f0] border w-[80%] md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-[80%]' src={formStateProfile.backImage} />
-              </div>
-            ) : (
-              <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <svg
-                  className='w-8 h-8 text-[#999] mb-1'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 20 18'
-                >
-                  <path
-                    fill='currentColor'
-                    d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
-                  />
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z'
-                  />
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
-                  />
-                </svg>
-                <p className='text-[#999]'>Mặt sau</p>
-              </div>
-            )}
-            {formStateProfile.portrait ? (
-              <div className='bg-[#f2f0f0] border w-[80%] md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <img className='w-[80%]' src={formStateProfile.portrait} />
-              </div>
-            ) : (
-              <div className='bg-[#f2f0f0] border w-full md:w-[118px] h-[150px] md:h-[80px] flex flex-col items-center justify-center'>
-                <svg
-                  className='w-8 h-8 text-[#999] mb-1'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 20 18'
-                >
-                  <path
-                    fill='currentColor'
-                    d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
-                  />
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z'
-                  />
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
-                  />
-                </svg>
-                <p className='text-[#999]'>Chân dung</p>
-              </div>
-            )}
-            <button
-              type='button'
-              onClick={handleOpen}
-              className='text-white flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 :bg-blue-600 :hover:bg-[#007bff] focus:outline-none :focus:ring-blue-800'
-            >
-              <svg
-                className='w-4 h-4 inline-block text-white'
-                aria-hidden='true'
-                xmlns='http://www.w3.org/2000/svg'
-                fill='currentColor'
-                viewBox='0 0 20 18'
+            <div className='bg-[#f2f0f0] border w-full md:w-[158px] h-[180px] md:h-[100px] flex flex-col items-center justify-center'>
+              {formStateProfile.frontImage ? (
+                <img className='w-full h-full object-cover' src={formStateProfile.frontImage} />
+              ) : (
+                <>
+                  <svg
+                    className='w-8 h-8 text-[#999] mb-1'
+                    aria-hidden='true'
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 20 18'
+                  >
+                    <path
+                      fill='currentColor'
+                      d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
+                    />
+                    <path
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z'
+                    />
+                    <path
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
+                    />
+                  </svg>
+                  <p className='text-[#999]'>Mặt trước</p>
+                </>
+              )}
+            </div>
+            <div className='bg-[#f2f0f0] border w-full md:w-[158px] h-[180px] md:h-[100px] flex flex-col items-center justify-center'>
+              {formStateProfile.backImage ? (
+                <img className='w-full h-full object-cover' src={formStateProfile.backImage} />
+              ) : (
+                <>
+                  <svg
+                    className='w-8 h-8 text-[#999] mb-1'
+                    aria-hidden='true'
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 20 18'
+                  >
+                    <path
+                      fill='currentColor'
+                      d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
+                    />
+                    <path
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z'
+                    />
+                    <path
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
+                    />
+                  </svg>
+                  <p className='text-[#999]'>Mặt sau</p>
+                </>
+              )}
+            </div>
+            <div className='bg-[#f2f0f0] border w-full md:w-[158px] h-[180px] md:h-[100px] flex flex-col items-center justify-center'>
+              {formStateProfile.portrait ? (
+                <img className='w-full h-full object-cover' src={formStateProfile.portrait} />
+              ) : (
+                <>
+                  <svg
+                    className='w-8 h-8 text-[#999] mb-1'
+                    aria-hidden='true'
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 20 18'
+                  >
+                    <path
+                      fill='currentColor'
+                      d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
+                    />
+                    <path
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z'
+                    />
+                    <path
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z'
+                    />
+                  </svg>
+                  <p className='text-[#999]'>Chân dung</p>
+                </>
+              )}
+            </div>
+
+            {!(formStateProfile.frontImage && formStateProfile.frontImage && formStateProfile.frontImage) && (
+              <button
+                type='button'
+                onClick={handleOpen}
+                className='text-white flex items-center gap-2 bg-[#007bff] hover:bg-blue-600 transition-all h-max focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 :bg-blue-600 :hover:bg-[#007bff] focus:outline-none :focus:ring-blue-800'
               >
-                <path d='M4.09 7.586A1 1 0 0 1 5 7h13V6a2 2 0 0 0-2-2h-4.557L9.043.8a2.009 2.009 0 0 0-1.6-.8H2a2 2 0 0 0-2 2v14c.001.154.02.308.058.457L4.09 7.586Z' />
-                <path d='M6.05 9 2 17.952c.14.031.281.047.424.048h12.95a.992.992 0 0 0 .909-.594L20 9H6.05Z' />
-              </svg>{' '}
-              Chọn file
-            </button>
+                <svg
+                  className='w-4 h-4 inline-block text-white'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='currentColor'
+                  viewBox='0 0 20 18'
+                >
+                  <path d='M4.09 7.586A1 1 0 0 1 5 7h13V6a2 2 0 0 0-2-2h-4.557L9.043.8a2.009 2.009 0 0 0-1.6-.8H2a2 2 0 0 0-2 2v14c.001.154.02.308.058.457L4.09 7.586Z' />
+                  <path d='M6.05 9 2 17.952c.14.031.281.047.424.048h12.95a.992.992 0 0 0 .909-.594L20 9H6.05Z' />
+                </svg>{' '}
+                Chọn file
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -273,9 +275,8 @@ const Settings = () => {
                   setShowList(true)
                 }
               }}
-              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${
-                paymentInfo?.data !== null && 'bg-gray-50'
-              } `}
+              className={`bg-white w-full flex-1 relative p-[6px] rounded border flex items-start ${paymentInfo?.data !== null && 'bg-gray-50'
+                } `}
             >
               <div>{formState?.bankName || 'Chọn ngân hàng'}</div>
               {showList && (

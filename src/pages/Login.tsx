@@ -22,7 +22,6 @@ const Login = () => {
   const navigate = useNavigate()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(formState)
     mutationLogin.mutate(formState, {
       onSuccess: (dataUser) => {
         setIsAuthenticated(true)

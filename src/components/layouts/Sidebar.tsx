@@ -21,7 +21,7 @@ const Sidebar = () => {
   const [value, setValue] = useState(0)
   const [valueView, setValueView] = useState('')
   const [value2, setValue2] = useState(0)
-  // const [valueView2, setValueView2] = useState('')
+  const [valueView2, setValueView2] = useState('')
   const handleInputChange = (event: any) => {
     const inputValue = event.target.value
     if (inputValue === '') {
@@ -49,7 +49,6 @@ const Sidebar = () => {
   const [totalAmount, setTotalAmount] = useState<string | number>(0)
   const [money, setMoney] = useState<string | number>(0)
   const [freeze, setFreeze] = useState<string | number>(0)
-  console.log('freeze', freeze)
   const mutationCreate = useMutation((body: any) => {
     return postWithdrawt(body)
   })
@@ -82,11 +81,10 @@ const Sidebar = () => {
         changeMoney: value2
       }
       mutationChuyenTien.mutate(newData, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           alert('Chuyển tiền hoàn tất!')
           setMoney(Number(money) + Number(value2))
           setTotalAmount(Number(totalAmount) - Number(value2))
-          console.log(data.data)
         },
         onError: (error: any) => {
           alert(error?.response.data.message)
@@ -96,8 +94,7 @@ const Sidebar = () => {
       alert('Tiền chuyển nhiều hơn số hạn mức!')
     }
   }
-  const [banks, setTotalbanks] = useState<any>(null)
-  console.log(banks)
+
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
   const [open2, setOpen2] = useState(false)
@@ -115,9 +112,6 @@ const Sidebar = () => {
   const { data: paymentInfo } = useQuery({
     queryKey: 'get-payment',
     queryFn: () => getPayment({ userId: profile?._id }),
-    onSuccess: (data) => {
-      setTotalbanks(data?.data?.userId?.isDongBang)
-    }
   })
   useQuery({
     queryKey: ['get-toi-thieu'],
@@ -132,11 +126,10 @@ const Sidebar = () => {
     <>
       <BaseModal show={showSidebar} onClose={() => setShowSidebar(false)}></BaseModal>
       <div
-        className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${
-          location.includes('profile') || location.includes('open-card')
-            ? 'fixed top-0 left-0  min-h-screen z-50 '
-            : 'hidden  lg:block'
-        } w-[275px] lg:translate-x-0  bg-[#f8f8f8] lg:sticky top-0 min-h-screen transition-all`}
+        className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${location.includes('profile') || location.includes('open-card')
+          ? 'fixed top-0 left-0  min-h-screen z-50 '
+          : 'hidden  lg:block'
+          } w-[275px] lg:translate-x-0  bg-[#f8f8f8] lg:sticky top-0 min-h-screen transition-all`}
       >
         <div className='mt-10 px-3'>
           <img src={gỉl} className='rounded-full block mx-auto w-[75px] h-[80px]' alt='' />
@@ -210,27 +203,24 @@ const Sidebar = () => {
         </div>
         <ul className='px-3 mt-6'>
           <li
-            className={`py-1 px-2 ${
-              location === '/profile/settings' && 'bg-[#333399] text-white'
-            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
+            className={`py-1 px-2 ${location === '/profile/settings' && 'bg-[#333399] text-white'
+              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
           >
             <Link className='w-full block' to={'/profile/settings'}>
               Hồ sơ tài khoản
             </Link>
           </li>
           <li
-            className={`py-1 px-2 ${
-              location === '/profile/loan-demand' && 'bg-[#333399] text-white'
-            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+            className={`py-1 px-2 ${location === '/profile/loan-demand' && 'bg-[#333399] text-white'
+              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
           >
             <Link className='w-full block' to={'/profile/loan-demand'}>
               Quản lý
             </Link>
           </li>
           <li
-            className={`py-1 px-2 ${
-              location === '/profile/password' && 'bg-[#333399] text-white'
-            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+            className={`py-1 px-2 ${location === '/profile/password' && 'bg-[#333399] text-white'
+              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
           >
             <Link className='w-full block' to={'/profile/password'}>
               Đổi mật khẩu
@@ -371,7 +361,7 @@ const Sidebar = () => {
                 <div className='flex-1 p-1.5'>
                   <input
                     onChange={handleInputChange2}
-                    value={valueView}
+                    value={valueView2}
                     type='text'
                     className='w-[300px] '
                     placeholder='Nhập số tiền'

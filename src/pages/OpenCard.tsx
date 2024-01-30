@@ -93,7 +93,6 @@ const OpenCard = () => {
       },
       onError: (error: any) => {
         alert(error?.response.data.error)
-        console.log(error)
       }
     })
   }
@@ -164,27 +163,24 @@ const OpenCard = () => {
         <button
           onClick={() => setCodeState({ ...clientCode, type: '1' })}
           type='button'
-          className={`${
-            codeState?.type === '1' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
-          }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
+          className={`${codeState?.type === '1' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
+            }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
         >
           Yêu cầu cấp hạn mức
         </button>
         <button
           onClick={() => setCodeState({ ...fashionCode, type: '2' })}
           type='button'
-          className={`${
-            codeState?.type === '2' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
-          }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
+          className={`${codeState?.type === '2' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
+            }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
         >
           Yêu cầu hạn mức
         </button>
         <button
           onClick={() => setCodeState({ ...productCode, type: '3' })}
           type='button'
-          className={`${
-            codeState?.type === '3' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
-          }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
+          className={`${codeState?.type === '3' ? 'text-white bg-blue-700' : 'text-blue-700 bg-white'
+            }  border-blue-700 border-2  transition-all  hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2   focus:outline-none `}
         >
           Yêu cầu nâng cấp hạn mức
         </button>
@@ -235,9 +231,8 @@ const OpenCard = () => {
                     setValueView(String(item).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
                   }}
                   key={index}
-                  className={`${
-                    item === valueInput ? '!bg-blue-600 text-white' : ''
-                  } h-[35.6px] cursor-pointer hover:text-white flex items-center justify-center border bg-white hover:bg-blue-600 border-blue-600 transition-all duration-300 rounded-lg`}
+                  className={`${item === valueInput ? '!bg-blue-600 text-white' : ''
+                    } h-[35.6px] cursor-pointer hover:text-white flex items-center justify-center border bg-white hover:bg-blue-600 border-blue-600 transition-all duration-300 rounded-lg`}
                 >
                   {formatNumberWithCommas(item)}₫
                 </div>
