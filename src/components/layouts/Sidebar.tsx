@@ -326,8 +326,8 @@ const Sidebar = () => {
           <div className='p-4 bg-white flex items-center justify-between'>
             <button
               onClick={() => {
-                setValue(Number(totalAmount))
-                setValueView(String(totalAmount).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
+                setValue(Number(money))
+                setValueView(String(money).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
               }}
               className='bg-[#333399] text-white  py-1.5 px-3 rounded-md'
             >
