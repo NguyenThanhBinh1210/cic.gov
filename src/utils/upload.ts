@@ -9,7 +9,8 @@ class Upload {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
       // baseURL: 'http://localhost:4001/api/',
-      baseURL: 'https://api-vay.onrender.com/api/',
+      // baseURL: 'https://api-vay.onrender.com/api/',
+      baseURL: 'https://cms.viettien.fun/api/',
       timeout: 10000,
       headers: {
         'Content-Type': 'multipart/form-data'
