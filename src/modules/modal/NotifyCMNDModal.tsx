@@ -317,7 +317,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
               <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-gray-500'>
                 Huỷ
               </button>
-              <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
+              <button onClick={() => window.location.reload()} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
                 Tiếp tục
               </button>
             </div>

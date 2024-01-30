@@ -111,7 +111,7 @@ const Sidebar = () => {
 
   const { data: paymentInfo } = useQuery({
     queryKey: 'get-payment',
-    queryFn: () => getPayment({ userId: profile?._id }),
+    queryFn: () => getPayment({ userId: profile?._id })
   })
   useQuery({
     queryKey: ['get-toi-thieu'],
@@ -127,8 +127,8 @@ const Sidebar = () => {
       <BaseModal show={showSidebar} onClose={() => setShowSidebar(false)}></BaseModal>
       <div
         className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${location.includes('profile') || location.includes('open-card')
-          ? 'fixed top-0 left-0  min-h-screen z-50 '
-          : 'hidden  lg:block'
+            ? 'fixed top-0 left-0  min-h-screen z-50 '
+            : 'hidden  lg:block'
           } w-[275px] lg:translate-x-0  bg-[#f8f8f8] lg:sticky top-0 min-h-screen transition-all`}
       >
         <div className='mt-10 px-3'>
@@ -236,21 +236,23 @@ const Sidebar = () => {
             <Link className='w-full block' to={'/profile/settings'}>
               Xác minh CMND/CCCD
             </Link>
-            <svg
-              className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
-              aria-hidden='true'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-            >
-              <path
-                stroke='currentColor'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='3'
-                d='m5 12 4.7 4.5 9.3-9'
-              />
-            </svg>{' '}
+            {profile.frontImage.length > 0 && profile.frontImage.length > 0 && profile.frontImage.length > 0 && (
+              <svg
+                className='w-[18px] h-[18px] text-green-600 -translate-y-0.5 '
+                aria-hidden='true'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+              >
+                <path
+                  stroke='currentColor'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='3'
+                  d='m5 12 4.7 4.5 9.3-9'
+                />
+              </svg>
+            )}
           </li>
           <li
             className={`py-1 px-2 
@@ -383,8 +385,8 @@ const Sidebar = () => {
           <div className='p-4 bg-white flex items-center justify-between'>
             <button
               onClick={() => {
-                setValue(Number(totalAmount))
-                setValueView(String(totalAmount).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
+                setValue2(Number(totalAmount))
+                setValueView2(String(totalAmount).replace(/\B(?=(\d{3})+(?!\d))/g, '.'))
               }}
               className='bg-[#333399] text-white  py-1.5 px-3 rounded-md'
             >
