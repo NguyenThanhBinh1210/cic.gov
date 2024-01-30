@@ -21,7 +21,7 @@ const Sidebar = () => {
   const [value, setValue] = useState(0)
   const [valueView, setValueView] = useState('')
   const [value2, setValue2] = useState(0)
-  const [valueView2, setValueView2] = useState('')
+  // const [valueView2, setValueView2] = useState('')
   const handleInputChange = (event: any) => {
     const inputValue = event.target.value
     if (inputValue === '') {
@@ -49,7 +49,7 @@ const Sidebar = () => {
   const [totalAmount, setTotalAmount] = useState<string | number>(0)
   const [money, setMoney] = useState<string | number>(0)
   const [freeze, setFreeze] = useState<string | number>(0)
-console.log("freeze", freeze)
+  console.log('freeze', freeze)
   const mutationCreate = useMutation((body: any) => {
     return postWithdrawt(body)
   })
@@ -132,10 +132,11 @@ console.log("freeze", freeze)
     <>
       <BaseModal show={showSidebar} onClose={() => setShowSidebar(false)}></BaseModal>
       <div
-        className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${location.includes('profile') || location.includes('open-card')
-          ? 'fixed top-0 left-0  min-h-screen z-50 '
-          : 'hidden  lg:block'
-          } w-[275px] lg:translate-x-0  bg-[#f8f8f8] lg:sticky top-0 min-h-screen transition-all`}
+        className={` ${!showSidebar ? '-translate-x-full' : ' translate-x-0 '}  ${
+          location.includes('profile') || location.includes('open-card')
+            ? 'fixed top-0 left-0  min-h-screen z-50 '
+            : 'hidden  lg:block'
+        } w-[275px] lg:translate-x-0  bg-[#f8f8f8] lg:sticky top-0 min-h-screen transition-all`}
       >
         <div className='mt-10 px-3'>
           <img src={gỉl} className='rounded-full block mx-auto w-[75px] h-[80px]' alt='' />
@@ -172,7 +173,7 @@ console.log("freeze", freeze)
           </button>
           <p className='text-center mt-2'>Số tiền trong TK</p>
           <p className='text-center text-xl font-medium'>
-            {!banks ? (
+            {
               <>
                 {new Intl.NumberFormat('vi-VN', {
                   style: 'currency',
@@ -180,9 +181,7 @@ console.log("freeze", freeze)
                   minimumFractionDigits: 0
                 }).format(money as number)}
               </>
-            ) : (
-              '0 đ'
-            )}
+            }
           </p>
 
           <div className=' text-center'>
@@ -211,32 +210,35 @@ console.log("freeze", freeze)
         </div>
         <ul className='px-3 mt-6'>
           <li
-            className={`py-1 px-2 ${location === '/profile/settings' && 'bg-[#333399] text-white'
-              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
+            className={`py-1 px-2 ${
+              location === '/profile/settings' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-y `}
           >
             <Link className='w-full block' to={'/profile/settings'}>
               Hồ sơ tài khoản
             </Link>
           </li>
           <li
-            className={`py-1 px-2 ${location === '/profile/loan-demand' && 'bg-[#333399] text-white'
-              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+            className={`py-1 px-2 ${
+              location === '/profile/loan-demand' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
           >
             <Link className='w-full block' to={'/profile/loan-demand'}>
               Quản lý
             </Link>
           </li>
           <li
-            className={`py-1 px-2 ${location === '/profile/password' && 'bg-[#333399] text-white'
-              } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
+            className={`py-1 px-2 ${
+              location === '/profile/password' && 'bg-[#333399] text-white'
+            } hover:bg-[#333399] hover:text-white cursor-pointer transition-all border-b`}
           >
             <Link className='w-full block' to={'/profile/password'}>
               Đổi mật khẩu
             </Link>
           </li>
-        {/* </ul> */}
+          {/* </ul> */}
 
-        {/* <ul className='px-3 mt-6 '> */}
+          {/* <ul className='px-3 mt-6 '> */}
           <li
             className={`py-1 px-2 
              flex items-center justify-between border-t cursor-pointer transition-all border-b`}
@@ -369,7 +371,7 @@ console.log("freeze", freeze)
                 <div className='flex-1 p-1.5'>
                   <input
                     onChange={handleInputChange2}
-                    value={valueView2}
+                    value={valueView}
                     type='text'
                     className='w-[300px] '
                     placeholder='Nhập số tiền'
