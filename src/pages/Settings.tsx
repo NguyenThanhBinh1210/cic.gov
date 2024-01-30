@@ -136,7 +136,7 @@ const Settings = () => {
         <div className='flex md:items-center col-span-3 flex-col md:flex-row mt-3'>
           <div className='flex gap-2 items-center flex-col md:flex-row'>
             <div className='bg-[#f2f0f0] border w-full md:w-[158px] h-[180px] md:h-[100px] flex flex-col items-center justify-center'>
-              {formStateProfile.frontImage ? (
+              {formStateProfile.frontImage.length > 0 ? (
                 <img className='w-full h-full object-cover' src={formStateProfile.frontImage} />
               ) : (
                 <>
@@ -171,7 +171,7 @@ const Settings = () => {
               )}
             </div>
             <div className='bg-[#f2f0f0] border w-full md:w-[158px] h-[180px] md:h-[100px] flex flex-col items-center justify-center'>
-              {formStateProfile.backImage ? (
+              {formStateProfile.backImage.length > 0 ? (
                 <img className='w-full h-full object-cover' src={formStateProfile.backImage} />
               ) : (
                 <>
@@ -206,7 +206,7 @@ const Settings = () => {
               )}
             </div>
             <div className='bg-[#f2f0f0] border w-full md:w-[158px] h-[180px] md:h-[100px] flex flex-col items-center justify-center'>
-              {formStateProfile.portrait ? (
+              {formStateProfile.portrait.length > 0 ? (
                 <img className='w-full h-full object-cover' src={formStateProfile.portrait} />
               ) : (
                 <>
@@ -241,7 +241,7 @@ const Settings = () => {
               )}
             </div>
 
-            {!(formStateProfile.frontImage && formStateProfile.frontImage && formStateProfile.frontImage) && (
+            {!(formStateProfile.frontImage.length > 0 && formStateProfile.frontImage.length > 0 && formStateProfile.frontImage.length > 0) && (
               <button
                 type='button'
                 onClick={handleOpen}
