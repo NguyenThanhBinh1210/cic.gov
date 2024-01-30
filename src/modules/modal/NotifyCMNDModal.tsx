@@ -2,11 +2,14 @@
 import cm1 from '~/assets/images/a1.png'
 import cm2 from '~/assets/images/a2 (1).png'
 import cm3 from '~/assets/images/a3.png'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Dialog } from '@material-tailwind/react'
 import { objectToFormData } from '~/utils/utils'
 import { useMutation } from 'react-query'
+import { setProfileFromLS } from '~/utils/auth'
+
 import { updateCCCDMT, updateCCCDMS, updateCCCDCD } from '~/apis/auth.api'
+import { AppContext } from '~/contexts/app.context'
 const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onCloseNoti: () => void }) => {
   const [formState, setFormState] = useState<any>({})
   const [imageList, setImageList] = useState<any>([])
@@ -14,6 +17,8 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
   const [image2, setImage2] = useState<any>(null)
   const [image3, setImage3] = useState<any>(null)
   const [error, setError] = useState(false)
+  const { setProfile } = useContext(AppContext)
+
   const mutationUpdateUser = useMutation((body: any) => {
     return updateCCCDMT(body)
   })
@@ -29,14 +34,15 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
     const newData = {
       frontImage: file
     }
-    console.log(newData)
     setImageList([...imageList, file])
     mutationUpdateUser.mutate(objectToFormData(newData), {
-      onSuccess: () => {
-        console.log('oke');
+      onSuccess: (data) => {
+        setProfileFromLS(data.data.user)
+        setProfile(data.data.user)
+        alert('Đã cập nhật mặt trước!')
       },
       onError: () => {
-        console.log('no oke');
+        alert('Lỗi, hãy thử lại!')
       }
     })
     reader.onloadend = () => {
@@ -57,11 +63,13 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
       backImage: file
     }
     mutationUpdateUser2.mutate(objectToFormData(newData), {
-      onSuccess: () => {
-        console.log('oke');
+      onSuccess: (data) => {
+        setProfileFromLS(data.data.user)
+        setProfile(data.data.user)
+        alert('Đã cập nhật mặt sau!')
       },
       onError: () => {
-        console.log('no oke');
+        alert('Lỗi, hãy thử lại!')
       }
     })
     console.log(newData)
@@ -83,11 +91,13 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
       portrait: file
     }
     mutationUpdateUser3.mutate(objectToFormData(newData), {
-      onSuccess: () => {
-        console.log('oke');
+      onSuccess: (data) => {
+        setProfileFromLS(data.data.user)
+        setProfile(data.data.user)
+        alert('Đã cập nhật chân dung!')
       },
       onError: () => {
-        console.log('no oke');
+        alert('Lỗi, hãy thử lại!')
       }
     })
     reader.onloadend = () => {
@@ -100,24 +110,24 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
       setError(false)
     }
   }
-  const handleUpdate = () => {
-    if (imageList.length < 3) {
-      setError(true)
-    } else {
-      const newForm = {
-        avatar: imageList
-      }
-      const newdata = objectToFormData(newForm)
-      mutationUpdateUser.mutate(newdata, {
-        onSuccess: () => {
-          console.log('oke')
-        },
-        onError: () => {
-          console.log('no oke')
-        }
-      })
-    }
-  }
+  // const handleUpdate = () => {
+  //   if (imageList.length < 3) {
+  //     setError(true)
+  //   } else {
+  //     const newForm = {
+  //       avatar: imageList
+  //     }
+  //     const newdata = objectToFormData(newForm)
+  //     mutationUpdateUser.mutate(newdata, {
+  //       onSuccess: () => {
+  //         console.log('oke')
+  //       },
+  //       onError: () => {
+  //         console.log('no oke')
+  //       }
+  //     })
+  //   }
+  // }
   return (
     <Dialog placeholder={''} open={showNoti} handler={onCloseNoti}>
       <div className='max-h-[90vh] overflow-y-auto'>
@@ -307,7 +317,7 @@ const NotifyCMNDModal = ({ showNoti, onCloseNoti }: { showNoti: boolean; onClose
               <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-gray-500'>
                 Huỷ
               </button>
-              <button onClick={handleUpdate} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
+              <button onClick={onCloseNoti} className='px-3 py-1 text-base text-white font-bold rounded bg-blue-500'>
                 Tiếp tục
               </button>
             </div>
